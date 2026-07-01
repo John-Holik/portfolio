@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import MiniCard from '../components/MiniCard.astro';
+import { site } from '../data/site';
+import { featured, more } from '../data/projects';
+
+const year = new Date().getFullYear();
+---
+
+<Base>
+  <nav>
+    <div class="nav-inner">
+      <div class="brand"><span class="mark">JH</span> {site.name}</div>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href={site.resume}>Resume ↓</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="pill"><span class="dot"></span> {site.availability}</div>
+      <h1>{site.name}<br /><span class="accent">{site.role}</span></h1>
+      <p class="lede">
+        I build <strong>LLM systems and applied ML</strong>, from research pipelines that hold up to
+        peer review to products people actually use. Recent Computer Software Engineering grad, based
+        in Chicago.
+      </p>
+      <div class="meta-row">
+        <span>📍 {site.location}</span>
+        <span class="sep">/</span>
+        <span>{site.education}</span>
+        <span class="sep">/</span>
+        <span>{site.researchLine}</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#work">View work</a>
+        <a class="btn btn-ghost" href={site.github} target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href={site.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Featured work</h2>
+        <span class="kicker">{String(featured.length).padStart(2, '0')} / selected</span>
+      </div>
+
+      <div class="featured">
+        {featured.map((project) => <ProjectCard project={project} />)}
+      </div>
+
+      <div class="section-head">
+        <h2>More projects</h2>
+        <span class="kicker">selected builds</span>
+      </div>
+      <div class="grid">
+        {more.map((project) => <MiniCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>About</h2>
+        <span class="kicker">who / what</span>
+      </div>
+      <div class="about-grid about">
+        <div>
+          <p>
+            I'm a software engineer who leans hard into <strong>AI/ML</strong>. My work spans the
+            full arc: collecting and cleaning messy real-world data, building and evaluating LLM and
+            ML systems, and shipping them as real products.
+          </p>
+          <p>
+            My flagship is <strong>ElectriAI</strong>, an independent research project I built end to
+            end and am publishing, advised at FGCU and funded by the Head Start Grant. Alongside it
+            I've shipped full-stack LLM apps and a tested scientific-computing package, with a
+            research engineer's habits: reproducible, evaluated, and honest about what the numbers
+            say.
+          </p>
+          <p>
+            Comfortable across the stack, from PostgreSQL and REST APIs to systems-level C++ and
+            assembly, with strong fundamentals in data structures, algorithms, and operating systems.
+          </p>
+        </div>
+        <div class="facts">
+          <div class="fact">
+            <div class="k">EDUCATION</div>
+            <div class="v">B.S. Computer Software Engineering, FGCU '26 · Dean's List</div>
+          </div>
+          <div class="fact">
+            <div class="k">FOCUS</div>
+            <div class="v">LLM systems · applied ML · full-stack</div>
+          </div>
+          <div class="fact">
+            <div class="k">CORE STACK</div>
+            <div class="v">Python · React · FastAPI · PostgreSQL</div>
+          </div>
+          <div class="fact">
+            <div class="k">ALSO</div>
+            <div class="v">C++ · SQL · Assembly · Cloudflare</div>
+          </div>
+          <div class="fact">
+            <div class="k">LOCATION</div>
+            <div class="v">{site.location}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-cta">
+        <h2>Let's build something.</h2>
+        <p>
+          Open to AI/ML and software engineering roles, and always up for a good problem. The fastest
+          way to reach me is email.
+        </p>
+        <div class="foot-links">
+          <a class="btn btn-primary" href={`mailto:${site.email}`}>{site.email}</a>
+          <a class="btn btn-ghost" href={site.github} target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn-ghost" href={site.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn btn-ghost" href={site.resume}>Resume ↓</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© {year} {site.name}</span>
+        <span>Built with Astro · deployed on Cloudflare</span>
+      </div>
+    </div>
+  </footer>
+</Base>

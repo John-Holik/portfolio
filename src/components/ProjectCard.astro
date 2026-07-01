@@ -1,0 +1,41 @@
+---
+import type { FeaturedProject } from '../data/projects';
+
+interface Props {
+  project: FeaturedProject;
+}
+
+const { project } = Astro.props;
+---
+
+<article class:list={['card', { flagship: project.flagship }]}>
+  <div class="card-top">
+    <h3>{project.title}</h3>
+    <span class:list={['tag', { live: project.flagship }]}>{project.tag}</span>
+  </div>
+  <p class="desc">{project.description}</p>
+  <div class="metrics">
+    {
+      project.metrics.map((m) => (
+        <div class="metric">
+          <div class="num">{m.num}</div>
+          <div class="lbl">{m.label}</div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="stack">
+    {project.stack.map((s) => <span class="chip">{s}</span>)}
+  </div>
+  {
+    project.links.length > 0 && (
+      <div class="links">
+        {project.links.map((l) => (
+          <a href={l.href} target="_blank" rel="noopener">
+            {l.label} <span class="arr">↗</span>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</article>

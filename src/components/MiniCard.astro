@@ -1,0 +1,15 @@
+---
+import type { MiniProject } from '../data/projects';
+
+interface Props {
+  project: MiniProject;
+}
+
+const { project } = Astro.props;
+---
+
+<a class="mini" href={project.href} target="_blank" rel="noopener">
+  <h4>{project.title} <span class="arr">↗</span></h4>
+  <p>{project.description}</p>
+  <span class="mstack">{project.stack}</span>
+</a>
