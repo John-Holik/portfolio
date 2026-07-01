@@ -1,10 +1,7 @@
 // Add or edit projects here. Featured projects render as large cards; "more" as the compact grid.
-//
-// TODO (John): replace the placeholder hrefs (currently your GitHub profile) with the real
-// public repo URLs, or delete the link if a project has no public repo. Verified links:
-//   - ElectriAI live: https://electriai.com
-//   - Red Tide repo: https://github.com/John-Holik/redtide-reanalysis-book
-// The Red Tide Jupyter Book URL was flagged unverified in the vault, so it's omitted for now.
+// Links resolved to real public repos on github.com/John-Holik.
+// CapSight AI, UFC Relational DB, and Ultrasonic Sensor have no public repo, so they render
+// without a link. Push a public repo and add the URL here to make them clickable.
 
 export interface Metric {
   num: string;
@@ -30,7 +27,7 @@ export interface MiniProject {
   title: string;
   description: string;
   stack: string;
-  href: string;
+  href?: string;
 }
 
 export const featured: FeaturedProject[] = [
@@ -46,7 +43,10 @@ export const featured: FeaturedProject[] = [
       { num: '10', label: 'class category schema' },
     ],
     stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
-    links: [{ label: 'Live site', href: 'https://electriai.com' }],
+    links: [
+      { label: 'Live site', href: 'https://electriai.com' },
+      { label: 'GitHub', href: 'https://github.com/John-Holik/ElectricalKM-LLM-Pipeline' },
+    ],
   },
   {
     title: 'Red Tide Reanalysis',
@@ -59,7 +59,10 @@ export const featured: FeaturedProject[] = [
       { num: '142+', label: 'passing tests' },
     ],
     stack: ['Python', 'NumPy', 'scikit-learn', 'SciPy', 'pytest + Hypothesis'],
-    links: [{ label: 'GitHub', href: 'https://github.com/John-Holik/redtide-reanalysis-book' }],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/John-Holik/redtide-reanalysis-book' },
+      { label: 'Read the book', href: 'https://john-holik.github.io/redtide-reanalysis-book/intro.html' },
+    ],
   },
   {
     title: 'CapSight AI',
@@ -72,7 +75,7 @@ export const featured: FeaturedProject[] = [
       { num: 'REST', label: 'clean routes / services / schemas' },
     ],
     stack: ['React', 'FastAPI', 'PostgreSQL', 'Node / TypeScript', 'OpenAI'],
-    links: [{ label: 'GitHub', href: 'https://github.com/John-Holik' }], // TODO: real repo URL
+    links: [],
   },
 ];
 
@@ -82,41 +85,39 @@ export const more: MiniProject[] = [
     description:
       'LLM programming tutor that teaches through Socratic hints, not solutions. Modular system-prompt architecture adapts to skill level.',
     stack: 'Python · FastAPI · React · PostgreSQL',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
+    href: 'https://github.com/John-Holik/ProCodeAI',
   },
   {
     title: 'Credit-Risk ML',
     description:
       '14-model scikit-learn benchmark on 32,416 loans. Full preprocessing, tuning, and evaluation pipeline; 0.95 test ROC-AUC.',
     stack: 'Python · scikit-learn · pandas',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
+    href: 'https://github.com/John-Holik/Credit-Risk-Machine-Learning-Project',
   },
   {
     title: 'UFC Relational DB',
     description:
       'Normalized five-table schema modeling fighters, fights, and stats. Aggregation queries for win/loss ratios and outcomes by class.',
     stack: 'PostgreSQL · SQL',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
   },
   {
     title: 'E2E Test Suite',
     description:
       'Eight Selenium + TestNG UI test classes driving a live browser through login, posting, search, and recovery paths.',
     stack: 'Java · Selenium · TestNG · Maven',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
+    href: 'https://github.com/John-Holik/Rated-X-Twitter-Testing-',
   },
   {
     title: 'Tetris',
     description:
       'Full Tetris recreation from scratch: rendering, collision, line-clearing, and scoring in C++ with SFML.',
     stack: 'C++ · SFML',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
+    href: 'https://github.com/John-Holik/Tetris',
   },
   {
     title: 'Ultrasonic Sensor',
     description:
       'Arduino security sensor written in AVR assembly on the ATmega328p: ultrasonic ranging and alarm logic.',
     stack: 'Assembly · ATmega328p',
-    href: 'https://github.com/John-Holik', // TODO: real repo URL
   },
 ];
