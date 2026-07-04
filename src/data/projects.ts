@@ -1,7 +1,6 @@
 // Add or edit projects here. Featured projects render as large cards; "more" as the compact grid.
-// Links resolved to real public repos on github.com/John-Holik.
-// CapSight AI, UFC Relational DB, and Ultrasonic Sensor have no public repo, so they render
-// without a link. Push a public repo and add the URL here to make them clickable.
+// Links resolved to real public repos. UFC Relational DB has no public repo, so it renders
+// without a link. Push a public repo and add the URL here to make it clickable.
 
 export interface Metric {
   num: string;
@@ -75,7 +74,7 @@ export const featured: FeaturedProject[] = [
       { num: 'REST', label: 'clean routes / services / schemas' },
     ],
     stack: ['React', 'FastAPI', 'PostgreSQL', 'Node / TypeScript', 'OpenAI'],
-    links: [],
+    links: [{ label: 'GitHub', href: 'https://github.com/DevAudDom/capsight-ai' }],
   },
 ];
 
@@ -119,5 +118,6 @@ export const more: MiniProject[] = [
     description:
       'Arduino security sensor written in AVR assembly on the ATmega328p: ultrasonic ranging and alarm logic.',
     stack: 'Assembly · ATmega328p',
+    href: 'https://github.com/John-Holik/CDA3104',
   },
 ];
