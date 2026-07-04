@@ -49,7 +49,6 @@ const year = new Date().getFullYear();
     <div class="wrap">
       <div class="section-head">
         <h2>Featured work</h2>
-        <span class="kicker">{String(featured.length).padStart(2, '0')} / selected</span>
       </div>
 
       <div class="featured">
@@ -58,7 +57,6 @@ const year = new Date().getFullYear();
 
       <div class="section-head">
         <h2>More projects</h2>
-        <span class="kicker">selected builds</span>
       </div>
       <div class="grid">
         {more.map((project) => <MiniCard project={project} />)}
@@ -70,7 +68,6 @@ const year = new Date().getFullYear();
     <div class="wrap">
       <div class="section-head">
         <h2>About</h2>
-        <span class="kicker">who / what</span>
       </div>
       <div class="about-grid about">
         <div>
