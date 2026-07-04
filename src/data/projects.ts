@@ -42,10 +42,7 @@ export const featured: FeaturedProject[] = [
       { num: '10', label: 'class category schema' },
     ],
     stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
-    links: [
-      { label: 'Live site', href: 'https://electriai.com' },
-      { label: 'GitHub', href: 'https://github.com/John-Holik/ElectricalKM-LLM-Pipeline' },
-    ],
+    links: [{ label: 'Live site', href: 'https://electriai.com' }],
   },
   {
     title: 'Red Tide Reanalysis',
