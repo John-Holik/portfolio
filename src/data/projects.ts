@@ -55,10 +55,7 @@ export const featured: FeaturedProject[] = [
       { num: '142+', label: 'passing tests' },
     ],
     stack: ['Python', 'NumPy', 'scikit-learn', 'SciPy', 'pytest + Hypothesis'],
-    links: [
-      { label: 'GitHub', href: 'https://github.com/John-Holik/redtide-reanalysis-book' },
-      { label: 'Read the book', href: 'https://john-holik.github.io/redtide-reanalysis-book/intro.html' },
-    ],
+    links: [{ label: 'Read the book', href: 'https://john-holik.github.io/redtide-reanalysis-book/intro.html' }],
   },
   {
     title: 'CapSight AI',
