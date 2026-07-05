@@ -225,6 +225,28 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
 }
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+}
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+.hero-photo {
+  flex-shrink: 0;
+}
+.hero-photo img {
+  display: block;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 55px var(--accent-glow);
+}
 
 /* ---------- Section header ---------- */
 .section {
@@ -510,6 +532,15 @@ footer {
   }
   .hero .lede {
     font-size: 17px;
+  }
+  .hero-inner {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .hero-photo img {
+    width: 120px;
+    height: 120px;
   }
   .metrics {
     gap: 24px;
