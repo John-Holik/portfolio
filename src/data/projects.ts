@@ -42,8 +42,20 @@ export const featured: FeaturedProject[] = [
       { num: '10', label: 'class category schema' },
     ],
     stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
+    links: [{ label: 'Live site', href: 'https://youtube.electriai.com' }],
+  },
+  {
+    title: 'ElectriAI Learning Games',
+    tag: 'GAMES · LIVE',
+    description:
+      "Browser games that turn ElectriAI's research into hands-on learning. Each is a self-contained HTML5 build with a question-driven economy, CSV/JSON question upload, and localStorage progress, mapping to the project's 10-class electrical-construction schema.",
+    metrics: [
+      { num: '2', label: 'games live in-browser' },
+      { num: '100', label: 'bundled questions' },
+      { num: '0', label: 'installs, plays instantly' },
+    ],
+    stack: ['HTML5', 'Canvas', 'JavaScript', 'localStorage'],
     links: [
-      { label: 'Live site', href: 'https://youtube.electriai.com' },
       { label: 'Grid Defense', href: 'https://john-holik.github.io/grid-defense/' },
       { label: 'Site Runner', href: 'https://john-holik.github.io/site-runner/' },
     ],
@@ -52,14 +64,17 @@ export const featured: FeaturedProject[] = [
     title: 'Red Tide Reanalysis',
     tag: 'SENIOR CAPSTONE · PACKAGE',
     description:
-      "Ensemble-based uncertainty quantification for red-tide bloom prediction on Florida's coast. Four UQ methods (Bootstrap, GLUE, EnKF from scratch, LPU) propagate input uncertainty through a Random Forest classifier to produce calibrated probabilistic forecasts. Grew from notebooks into a tested, packaged Python library.",
+      "Ensemble-based uncertainty quantification for red-tide (Karenia brevis) bloom prediction on Florida's Peace River. Four UQ methods (Bootstrap, GLUE, EnKF from scratch, LPU) build 200-member ensembles that propagate input uncertainty through an ML classifier for calibrated probabilistic forecasts. Grew from notebooks into a tested, packaged Python library.",
     metrics: [
       { num: '4', label: 'UQ methods, 200-member ensembles' },
-      { num: '0.963', label: 'NSE (EnKF discharge)' },
-      { num: '142+', label: 'passing tests' },
+      { num: '0.890', label: 'EnKF balanced accuracy (0.887 obs)' },
+      { num: '87%', label: 'test coverage' },
     ],
     stack: ['Python', 'NumPy', 'scikit-learn', 'SciPy', 'pytest + Hypothesis'],
-    links: [{ label: 'Read the book', href: 'https://john-holik.github.io/redtide-reanalysis-book/intro.html' }],
+    links: [
+      { label: 'Read the book', href: 'https://john-holik.github.io/redtide-reanalysis-book/intro.html' },
+      { label: 'Poster', href: '/redtide-poster.pdf' },
+    ],
   },
   {
     title: 'CapSight AI',
