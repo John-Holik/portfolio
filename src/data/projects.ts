@@ -42,7 +42,11 @@ export const featured: FeaturedProject[] = [
       { num: '10', label: 'class category schema' },
     ],
     stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
-    links: [{ label: 'Live site', href: 'https://youtube.electriai.com' }],
+    links: [
+      { label: 'Live site', href: 'https://youtube.electriai.com' },
+      { label: 'Grid Defense', href: 'https://john-holik.github.io/grid-defense/' },
+      { label: 'Site Runner', href: 'https://john-holik.github.io/site-runner/' },
+    ],
   },
   {
     title: 'Red Tide Reanalysis',
