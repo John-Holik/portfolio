@@ -50,14 +50,28 @@ export const featured: FeaturedProject[] = [
     description:
       "Browser games that turn ElectriAI's research into hands-on learning. Each is a self-contained HTML5 build with a question-driven economy, CSV/JSON question upload, and localStorage progress, mapping to the project's 10-class electrical-construction schema.",
     metrics: [
-      { num: '2', label: 'games live in-browser' },
-      { num: '100', label: 'bundled questions' },
+      { num: '3', label: 'games live in-browser' },
+      { num: '132', label: 'bundled questions' },
     ],
     stack: ['HTML5', 'Canvas', 'JavaScript', 'localStorage'],
     links: [
       { label: 'Grid Defense', href: 'https://john-holik.github.io/grid-defense/' },
       { label: 'Site Runner', href: 'https://john-holik.github.io/site-runner/' },
+      { label: 'Power Route', href: 'https://john-holik.github.io/power-route/' },
     ],
+  },
+  {
+    title: 'Vault Command Center',
+    tag: 'DESKTOP APP · LIVE DEMO',
+    description:
+      'An Electron desktop control center for an Obsidian knowledge vault and a multi-terminal Claude Code setup: embedded PTY terminals with saved workspaces, a 3D knowledge graph, a markdown vault browser, live token-usage analytics, and a full gamification layer. The live demo is a faithful in-browser simulation (auto-typing Claude Code terminal replays, a draggable force-directed graph, wikilink navigation with backlinks, and an activity heatmap) built as dependency-free static HTML/CSS/JS.',
+    metrics: [
+      { num: '~20K', label: 'lines of hand-written JS/CSS' },
+      { num: '11', label: 'tabs in the desktop app' },
+      { num: '96 KB', label: 'in-browser demo, zero dependencies' },
+    ],
+    stack: ['Electron', 'Node.js', 'xterm.js', 'Canvas', 'JavaScript'],
+    links: [{ label: 'Live demo', href: '/vcc-demo/' }],
   },
   {
     title: 'Red Tide Reanalysis',
