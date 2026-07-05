@@ -64,10 +64,10 @@ export const featured: FeaturedProject[] = [
     title: 'Vault Command Center',
     tag: 'DESKTOP APP · LIVE DEMO',
     description:
-      'An Electron desktop control center for an Obsidian knowledge vault and a multi-terminal Claude Code setup: embedded PTY terminals with saved workspaces, a 3D knowledge graph, a markdown vault browser, live token-usage analytics, and a full gamification layer. The live demo is a faithful in-browser simulation (auto-typing Claude Code terminal replays, a draggable force-directed graph, wikilink navigation with backlinks, and an activity heatmap) built as dependency-free static HTML/CSS/JS.',
+      'An Electron desktop control center built to run an entire AI-assisted workflow from one window: parallel Claude Code sessions in embedded PTY terminal grids with saved workspace layouts, pop-out panes, and broadcast typing; a full file browser over an Obsidian vault with markdown editing, wikilink navigation, search, and share-to-phone; a 3D knowledge graph; live token-usage analytics; and a gamification layer (XP, levels, quests, pet companion, shop) that turns daily work into progression. The live demo is a faithful in-browser simulation on mock data.',
     metrics: [
-      { num: '~20K', label: 'lines of hand-written JS/CSS' },
-      { num: '11', label: 'tabs in the desktop app' },
+      { num: '11', label: 'integrated tabs, one workflow hub' },
+      { num: '2×2', label: 'terminal grids, saved layouts' },
       { num: '96 KB', label: 'in-browser demo, zero dependencies' },
     ],
     stack: ['Electron', 'Node.js', 'xterm.js', 'Canvas', 'JavaScript'],

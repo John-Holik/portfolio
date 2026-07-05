@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vault Command Center — Interactive Demo</title>
+    <meta name="description" content="A live, simulated browser demo of the Vault Command Center, an Electron desktop control center for an Obsidian vault and Claude Code setup." />
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <!-- demo framing banner -->
+    <div class="demobar" id="demobar">
+      <a class="demobar-back" href="/">&larr; back to portfolio</a>
+      <span class="demobar-msg">
+        <b>Interactive demo</b> — simulated data. The real Vault Command Center is an Electron desktop app.
+      </span>
+      <button class="demobar-x" id="demobarX" title="Dismiss">&times;</button>
+    </div>
+
+    <div class="appshell" id="appshell">
+      <header class="top">
+        <img class="logo" src="logo.png" alt="VCC" width="22" height="22" />
+        <div class="seg" role="tablist" aria-label="Main sections">
+          <button class="tab on" data-tab="home" role="tab">Home</button>
+          <button class="tab" data-tab="terminal" role="tab">Terminal</button>
+          <button class="tab" data-tab="files" role="tab">Files</button>
+          <button class="tab" data-tab="graph" role="tab">Graph</button>
+          <button class="tab" data-tab="profile" role="tab">Profile</button>
+          <button class="tab" data-tab="capabilities" role="tab">Capabilities</button>
+          <button class="tab" data-tab="history" role="tab">History</button>
+        </div>
+
+        <div id="termstatus" class="termstatus"></div>
+
+        <button id="fivehr" class="fivehr" title="5-hour usage window (simulated)">
+          <span class="fh-lbl">5H</span>
+          <span class="fh-val" id="fhval">—</span>
+          <span class="fh-bar"><i id="fhbar"></i></span>
+          <span class="fh-sub" id="fhsub"></span>
+        </button>
+
+        <div id="gamestrip" class="gamestrip" title="Your level"></div>
+
+        <div class="winctrls">
+          <button class="wc" title="Minimize">&#8211;</button>
+          <button class="wc" title="Maximize">&#9723;</button>
+          <button class="wc wc-close" title="Close">&times;</button>
+        </div>
+      </header>
+
+      <div class="panels">
+        <section id="home" class="panel on">
+          <div class="homewrap" id="homewrap"></div>
+        </section>
+
+        <section id="terminal" class="panel">
+          <div class="termtop">
+            <div class="gridtabs" id="gridtabs"><span class="gtab on">Workspace 1</span></div>
+            <div class="termtools">
+              <button class="ttoggle on" id="btneon" title="Neon glow on the running pane">&#9673; Neon</button>
+              <button class="ttoggle" id="btmute" title="Toggle the agent-done chime">&#128276;</button>
+              <button class="ttoggle" id="btreplayall" title="Restart the scripted session in every pane">&#8635; Replay all</button>
+            </div>
+          </div>
+          <div class="termbody">
+            <div class="gridhost" id="gridhost">
+              <div class="gridwrap" data-layout="4" id="gridwrap"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="files" class="panel">
+          <div class="main files-main">
+            <div class="treecol">
+              <div class="tree-head">
+                <input id="fsearch" class="fsearch" placeholder="search notes…" />
+              </div>
+              <div class="tree" id="tree" role="tree"></div>
+            </div>
+            <div class="note" id="note"><div class="doc"><p class="muted">Select a note from the vault.</p></div></div>
+            <div class="info" id="info"></div>
+          </div>
+        </section>
+
+        <section id="graph" class="panel">
+          <div class="graphtop">
+            <span class="glegend" id="glegend"></span>
+            <span class="gcount" id="gcount"></span>
+            <span class="gcaption">Nebula preset · drag to orbit · scroll to zoom · hover for labels</span>
+            <button id="grefresh" class="btn sm">Rescan</button>
+          </div>
+          <div class="graphhost" id="graphhost">
+            <canvas id="graphcanvas"></canvas>
+          </div>
+        </section>
+
+        <section id="profile" class="panel">
+          <div class="g-prowrap" id="profilewrap"></div>
+          <div id="heatmap" class="hm-wrap"></div>
+          <div class="usage-in-profile">
+            <div class="g-sech">Token usage <span class="muted">simulated Claude activity</span></div>
+            <div class="chartwrap" id="chartwrap"></div>
+          </div>
+        </section>
+
+        <section id="capabilities" class="panel">
+          <div class="placeholder-wrap" id="capsph"></div>
+        </section>
+
+        <section id="history" class="panel">
+          <div class="placeholder-wrap" id="histph"></div>
+        </section>
+      </div>
+    </div>
+
+    <script src="mock-data.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>
