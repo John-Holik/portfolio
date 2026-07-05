@@ -52,7 +52,6 @@ export const featured: FeaturedProject[] = [
     metrics: [
       { num: '2', label: 'games live in-browser' },
       { num: '100', label: 'bundled questions' },
-      { num: '0', label: 'installs, plays instantly' },
     ],
     stack: ['HTML5', 'Canvas', 'JavaScript', 'localStorage'],
     links: [
