@@ -66,8 +66,9 @@
     return `<div class="home-hd"><div><h1>${greeting()}, John</h1><div class="home-sub">${sub}</div></div>
       <div class="home-tools"><button class="btn sm" id="homerescan">Rescan</button></div></div>`;
   }
+  // masonry columns size cards by content height; `span` is ignored (kept for call-site clarity)
   function card(id, title, span, bodyHtml, link) {
-    return `<div class="hcard" style="grid-column: span ${span}"><div class="hc-hd"><span class="hc-title">${title}</span>${link || ""}</div><div class="hc-body" data-w="${id}">${bodyHtml}</div></div>`;
+    return `<div class="hcard"><div class="hc-hd"><span class="hc-title">${title}</span>${link || ""}</div><div class="hc-body" data-w="${id}">${bodyHtml}</div></div>`;
   }
   function goLink(tab) { return `<span class="hc-link" data-go="${tab}">view →</span>`; }
 
@@ -146,16 +147,18 @@
 
   function renderHome() {
     const wrap = $("#homewrap");
+    // order = reading priority; CSS column-fill balances the three columns' heights.
+    // tall card (interview prep) leads column 1; the rest interleave medium/small.
     wrap.innerHTML = homeHeader() + `<div class="homegrid">` + [
-      card("mstar", "Morningstar application", 10, mstarBody(), `<span class="hc-link" data-rel="04_Work/morningstar-application.md">open →</span>`),
+      card("mstar", "Northwind interview prep", 10, mstarBody(), `<span class="hc-link" data-rel="04_Work/northwind-application.md">open →</span>`),
       card("todo", "Todo", 8, todoBody()),
       card("usage", "5-hour usage", 6, usageBody(), goLink("profile")),
-      card("vault", "Vault snapshot", 8, vaultBody(), goLink("files")),
       card("notes", "Recent notes", 8, notesBody(), goLink("files")),
+      card("vault", "Vault snapshot", 8, vaultBody(), goLink("files")),
       card("pet", "Companion", 8, petBody(), goLink("profile")),
       card("sessions", "Recent sessions", 10, sessBody(), goLink("history")),
-      card("done", "Recently completed", 8, doneBody()),
       card("caps", "Capabilities", 6, capBody(), goLink("capabilities")),
+      card("done", "Recently completed", 8, doneBody()),
       card("trend", "7-day tokens", 8, usageTrendBody(), goLink("profile")),
       card("hubs", "Hubs", 8, hubsBody()),
     ].join("") + `</div>`;

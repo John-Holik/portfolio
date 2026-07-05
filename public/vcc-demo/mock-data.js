@@ -17,42 +17,42 @@ window.MOCK = (function () {
       ],
     },
     hubs: [
-      { label: "Brain", rel: "00_About/Brain.md" },
+      { label: "Codex", rel: "00_About/Codex.md" },
       { label: "Research", rel: "02_Research/Research.md" },
-      { label: "ElectriAI", rel: "02_Research/ElectriAI/ElectriAI.md" },
+      { label: "Verdant", rel: "02_Research/Verdant/Verdant.md" },
       { label: "Learning", rel: "03_Learning/Learning.md" },
       { label: "Work", rel: "04_Work/Work.md" },
     ],
     recentFiles: [
-      { name: "attention-mechanisms", rel: "03_Learning/attention-mechanisms.md", agoMin: 14 },
-      { name: "morningstar-application", rel: "04_Work/morningstar-application.md", agoMin: 52 },
-      { name: "grid-topology-features", rel: "02_Research/ElectriAI/grid-topology-features.md", agoMin: 128 },
-      { name: "rag-eval-notes", rel: "03_Learning/rag-eval-notes.md", agoMin: 300 },
-      { name: "current-focus", rel: "00_About/current-focus.md", agoMin: 540 },
+      { name: "diffusion-models", rel: "03_Learning/diffusion-models.md", agoMin: 14 },
+      { name: "northwind-application", rel: "04_Work/northwind-application.md", agoMin: 52 },
+      { name: "canopy-features", rel: "02_Research/Verdant/canopy-features.md", agoMin: 128 },
+      { name: "vector-search-notes", rel: "03_Learning/vector-search-notes.md", agoMin: 300 },
+      { name: "current-notes", rel: "00_About/current-notes.md", agoMin: 540 },
     ],
     recentSessions: [
-      { title: "Wire the Terminal PTY bridge", label: "vault-command-center", msgs: 84, agoMin: 22 },
-      { title: "ElectriAI feature ablation", label: "ElectriAI", msgs: 141, agoMin: 190 },
-      { title: "RAG retriever eval harness", label: "rag-track-a", msgs: 63, agoMin: 610 },
+      { title: "Add live status strip to vault-dash", label: "vault-dash", msgs: 84, agoMin: 22 },
+      { title: "Verdant canopy-feature ablation", label: "Verdant", msgs: 141, agoMin: 190 },
+      { title: "Vector-search eval harness", label: "retrieval-track", msgs: 63, agoMin: 610 },
     ],
   };
 
   const todos = {
     open: [
-      { line: 1, text: "Finish Terminal PTY bridge over IPC" },
-      { line: 2, text: "Draft ElectriAI ablation section" },
-      { line: 3, text: "Prep Morningstar system-design round" },
-      { line: 4, text: "Review RAG eval metrics with advisor" },
+      { line: 1, text: "Finish live status strip in vault-dash" },
+      { line: 2, text: "Draft Verdant canopy-ablation section" },
+      { line: 3, text: "Prep Northwind system-design round" },
+      { line: 4, text: "Compare vector-search recall metrics" },
     ],
     done: [
-      { line: 20, text: "Ship Files backlinks scan", date: "07-03" },
+      { line: 20, text: "Ship note backlinks scan", date: "07-03" },
       { line: 21, text: "Add weekly usage window gauge", date: "07-02" },
-      { line: 22, text: "Refactor graph presets", date: "07-01" },
+      { line: 22, text: "Refactor graph render presets", date: "07-01" },
     ],
   };
 
   const mstar = {
-    done: 7, total: 11, pct: 64, note: "04_Work/morningstar-application.md",
+    done: 7, total: 11, pct: 64, note: "04_Work/northwind-application.md",
     tasks: [
       { g: "Application", t: "Tailor resume to JD", done: true },
       { g: "Application", t: "Cover letter draft", done: true },
@@ -64,7 +64,7 @@ window.MOCK = (function () {
       { g: "Prep", t: "Mock interview #1", done: false },
       { g: "Prep", t: "Mock interview #2", done: false },
       { g: "Follow-up", t: "Thank-you notes", done: false },
-      { g: "Follow-up", t: "Salary research", done: false },
+      { g: "Follow-up", t: "Comp research", done: false },
     ],
   };
 
@@ -130,130 +130,130 @@ window.MOCK = (function () {
 
   // ---- files: vault tree + note contents ----
   const notes = {
-    "00_About/Brain.md": {
+    "00_About/Codex.md": {
       props: { type: "hub", updated: "2026-07-03" },
-      links: ["Research", "Learning", "Work", "current-focus"],
-      body: `# Brain — master index
+      links: ["Research", "Learning", "Work", "current-notes"],
+      body: `# Codex — master index
 
 The hub of the vault. Everything reachable from here in one or two hops.
 
 ## Active domains
-- [[Research]] — flagship [[ElectriAI]], plus grid-reanalysis work
-- [[Learning]] — Track A RAG build is live
-- [[Work]] — the job search, anchored by [[morningstar-application]]
+- [[Research]] — flagship [[Verdant]], plus satellite-imagery work
+- [[Learning]] — the retrieval-systems track is live
+- [[Work]] — the job search, anchored by [[northwind-application]]
 
 ## Now
-See [[current-focus]] for the single "what am I doing today" page.
+See [[current-notes]] for the single "what am I doing today" page.
 
-> Index-first: reach specific notes on demand by following wikilinks. Keeps token use low while preserving memory.`,
+> Index-first: reach specific notes on demand by following wikilinks. Keeps the graph tidy while preserving memory.`,
     },
-    "00_About/current-focus.md": {
+    "00_About/current-notes.md": {
       props: { type: "note", updated: "2026-07-04" },
-      links: ["ElectriAI", "morningstar-application", "attention-mechanisms"],
-      body: `# Current focus
+      links: ["Verdant", "northwind-application", "diffusion-models"],
+      body: `# Current notes
 
 Three things, in priority order:
 
-1. **[[morningstar-application]]** — the Associate AI Engineer role. All-in.
-2. **[[ElectriAI]]** — push the ablation study toward a publishable draft.
-3. **[[attention-mechanisms]]** — solidify the fundamentals for interviews.
+1. **[[northwind-application]]** — the ML Engineer role. All-in.
+2. **[[Verdant]]** — push the canopy-ablation study toward a publishable draft.
+3. **[[diffusion-models]]** — solidify the fundamentals for interviews.
 
 Everything else is on hold until the application closes.`,
     },
-    "02_Research/ElectriAI/ElectriAI.md": {
+    "02_Research/Verdant/Verdant.md": {
       props: { type: "project", status: "active", updated: "2026-07-02" },
-      links: ["grid-topology-features", "Research"],
-      body: `# ElectriAI
+      links: ["canopy-features", "Research"],
+      body: `# Verdant
 
-A machine-learning approach to **power-grid fault localization** from PMU time-series.
+A machine-learning approach to **crop-yield forecasting** from multispectral satellite imagery.
 
 ## Idea
-Learn a mapping from synchrophasor measurements to the faulted line, using [[grid-topology-features]] as structural priors instead of a flat feature vector.
+Learn a mapping from a field's image time-series to end-of-season yield, using [[canopy-features]] as structural priors instead of raw pixels alone.
 
 ## Status
-- Baseline GBDT: **91.2%** top-1 line accuracy
-- GNN over the bus-admittance graph: **94.7%** top-1, better under noise
+- Baseline gradient-boosted trees: **88.4%** within-±5% yield accuracy
+- Temporal CNN over the NDVI stack: **93.1%**, better in cloudy weeks
 - Writing the ablation section now
 
 ## Next
-- Ablate topology features vs. raw measurements
-- Robustness under missing PMUs`,
+- Ablate canopy features vs. raw bands
+- Robustness under missing acquisition dates`,
     },
-    "02_Research/ElectriAI/grid-topology-features.md": {
+    "02_Research/Verdant/canopy-features.md": {
       props: { type: "note", updated: "2026-06-28" },
-      links: ["ElectriAI"],
-      body: `# Grid topology features
+      links: ["Verdant"],
+      body: `# Canopy features
 
-Structural features derived from the network, not the measurements.
+Structural features derived from the vegetation signal, not the raw bands.
 
 ## Feature groups
-- **Bus admittance** — the \`Y\` matrix as a weighted adjacency
-- **Electrical distance** — effective impedance between bus pairs
-- **Betweenness** on the line graph (captures critical corridors)
+- **NDVI** — normalized difference vegetation index per acquisition
+- **Green-up rate** — slope of the seasonal growth curve
+- **Canopy cover** — fraction of the field above a greenness threshold
 
 \`\`\`python
-import networkx as nx
-G = nx.from_numpy_array(np.abs(Y))
-bc = nx.betweenness_centrality(G, weight="weight")
+import numpy as np
+ndvi = (nir - red) / (nir + red + 1e-6)
+green_up = np.gradient(ndvi.mean(axis=(1, 2)))
 \`\`\`
 
-These plug into [[ElectriAI]] as node features for the GNN.`,
+These plug into [[Verdant]] as engineered inputs for the temporal model.`,
     },
-    "03_Learning/attention-mechanisms.md": {
+    "03_Learning/diffusion-models.md": {
       props: { type: "study", updated: "2026-07-04" },
-      links: ["rag-eval-notes"],
-      body: `# Attention mechanisms
+      links: ["vector-search-notes"],
+      body: `# Diffusion models
 
-Scaled dot-product attention, from scratch.
+Denoising diffusion, from scratch.
 
 ## The core
-Given queries \`Q\`, keys \`K\`, values \`V\`:
+Forward process gradually adds Gaussian noise over \`T\` steps; the model learns to reverse it:
 
 \`\`\`
-Attention(Q, K, V) = softmax(QKᵀ / √d_k) V
+x_{t-1} = 1/√α_t · (x_t − (1−α_t)/√(1−ᾱ_t) · ε_θ(x_t, t)) + σ_t z
 \`\`\`
 
-The \`√d_k\` scaling keeps the softmax out of saturated regions as dimensionality grows.
+Training just regresses the added noise \`ε\` at a random timestep — a surprisingly simple objective.
 
-## Multi-head
-Run \`h\` attention functions in parallel on projected subspaces, then concat + project. Each head can specialize (syntax, coreference, position).
+## Sampling
+Start from pure noise and iteratively denoise. DDIM lets you skip steps for faster sampling.
 
-Feeds into my [[rag-eval-notes]] — retrieval is just attention over a document store.`,
+Feeds into my [[vector-search-notes]] — learned embeddings are the bridge between the two.`,
     },
-    "03_Learning/rag-eval-notes.md": {
+    "03_Learning/vector-search-notes.md": {
       props: { type: "study", updated: "2026-07-01" },
-      links: ["attention-mechanisms", "Learning"],
-      body: `# RAG evaluation notes
+      links: ["diffusion-models", "Learning"],
+      body: `# Vector-search notes
 
-How to actually measure a retrieval-augmented pipeline.
+How to actually measure a retrieval pipeline over embeddings.
 
 ## Retrieval metrics
 - **Recall@k** — did we fetch the gold passage?
 - **MRR** — how high did it rank?
 - **nDCG** — graded relevance, position-discounted
 
-## Generation metrics
-- Faithfulness (is the answer grounded in the context?)
-- Answer relevance
+## Index choices
+- Flat (exact) vs. HNSW (approximate) — recall vs. latency tradeoff
+- Re-ranking the top-k with a cross-encoder
 
-> Separate the two stages when you debug: a bad answer from perfect context is a generation bug, not a retrieval bug.
+> Separate the stages when you debug: a bad answer from perfect context is a generation bug, not a retrieval bug.
 
-Part of [[Learning]] Track A.`,
+Part of the [[Learning]] retrieval track.`,
     },
-    "04_Work/morningstar-application.md": {
+    "04_Work/northwind-application.md": {
       props: { type: "job", status: "in-progress", updated: "2026-07-04" },
-      links: ["current-focus", "Work"],
-      body: `# Morningstar — Associate AI Engineer
+      links: ["current-notes", "Work"],
+      body: `# Northwind Analytics — ML Engineer
 
 The role I'm all-in on.
 
 ## Why it fits
-- ML + data engineering, applied to real financial data
-- Chicago-based (where I am now)
-- Room to grow into LLM/agent work
+- ML + data engineering, applied to real product data
+- Remote-friendly team
+- Room to grow into LLM / agent work
 
 ## Prep tracker
-See the **Morningstar application** widget on Home — task state is shared with my phone.
+See the **Northwind interview prep** widget on Home — task state syncs across devices.
 
 ## Loop
 1. Recruiter screen ✅
@@ -261,42 +261,42 @@ See the **Morningstar application** widget on Home — task state is shared with
 3. System design — prepping
 4. Onsite / behavioral
 
-Linked from [[Work]] and [[current-focus]].`,
+Linked from [[Work]] and [[current-notes]].`,
     },
     "04_Work/Work.md": {
       props: { type: "hub" },
-      links: ["morningstar-application"],
+      links: ["northwind-application"],
       body: `# Work — job search hub
 
 Career notes and the active pipeline.
 
-- [[morningstar-application]] — primary target (Associate AI Engineer)
-- Networking log, salary research, and interview retros live here.`,
+- [[northwind-application]] — primary target (ML Engineer)
+- Networking log, comp research, and interview retros live here.`,
     },
   };
 
   // folder tree structure (dirs + files, referencing notes above)
   const tree = [
     { type: "dir", name: "00_About", children: [
-      { type: "file", name: "Brain.md", rel: "00_About/Brain.md" },
-      { type: "file", name: "current-focus.md", rel: "00_About/current-focus.md" },
+      { type: "file", name: "Codex.md", rel: "00_About/Codex.md" },
+      { type: "file", name: "current-notes.md", rel: "00_About/current-notes.md" },
     ]},
     { type: "dir", name: "02_Research", children: [
-      { type: "dir", name: "ElectriAI", children: [
-        { type: "file", name: "ElectriAI.md", rel: "02_Research/ElectriAI/ElectriAI.md" },
-        { type: "file", name: "grid-topology-features.md", rel: "02_Research/ElectriAI/grid-topology-features.md" },
+      { type: "dir", name: "Verdant", children: [
+        { type: "file", name: "Verdant.md", rel: "02_Research/Verdant/Verdant.md" },
+        { type: "file", name: "canopy-features.md", rel: "02_Research/Verdant/canopy-features.md" },
       ]},
     ]},
     { type: "dir", name: "03_Learning", children: [
-      { type: "file", name: "attention-mechanisms.md", rel: "03_Learning/attention-mechanisms.md" },
-      { type: "file", name: "rag-eval-notes.md", rel: "03_Learning/rag-eval-notes.md" },
+      { type: "file", name: "diffusion-models.md", rel: "03_Learning/diffusion-models.md" },
+      { type: "file", name: "vector-search-notes.md", rel: "03_Learning/vector-search-notes.md" },
     ]},
     { type: "dir", name: "04_Work", children: [
       { type: "file", name: "Work.md", rel: "04_Work/Work.md" },
-      { type: "file", name: "morningstar-application.md", rel: "04_Work/morningstar-application.md" },
+      { type: "file", name: "northwind-application.md", rel: "04_Work/northwind-application.md" },
     ]},
     { type: "dir", name: "05_Tools", children: [
-      { type: "file", name: "vault-command-center", rel: null },
+      { type: "file", name: "vault-dash", rel: null },
     ]},
   ];
 
@@ -307,54 +307,54 @@ Career notes and the active pipeline.
   };
   const GRAPH_BG = "#0d0b28"; // Nebula preset background
   const gnodes = [
-    ["Brain", "About"], ["current-focus", "About"], ["Templates", "About"], ["Capabilities", "About"], ["Memory", "About"],
-    ["Research", "Research"], ["ElectriAI", "Research"], ["grid-topology", "Research"], ["PMU-data", "Research"], ["Redtide", "Research"], ["fault-loc", "Research"], ["GNN-priors", "Research"],
-    ["Learning", "Learning"], ["attention", "Learning"], ["rag-eval", "Learning"], ["transformers", "Learning"], ["retrieval", "Learning"], ["embeddings", "Learning"], ["DSA-graphs", "Learning"],
-    ["Work", "Work"], ["morningstar", "Work"], ["interview-prep", "Work"], ["system-design", "Work"], ["salary", "Work"],
-    ["POE2", "Games"], ["build-log", "Games"], ["mechanics", "Games"],
-    ["VCC", "Tools"], ["skills-index", "Tools"], ["agents-index", "Tools"],
+    ["Codex", "About"], ["current-notes", "About"], ["Templates", "About"], ["Capabilities", "About"], ["Memory", "About"],
+    ["Research", "Research"], ["Verdant", "Research"], ["canopy-features", "Research"], ["satellite-data", "Research"], ["harvest-index", "Research"], ["yield-model", "Research"], ["ndvi-priors", "Research"],
+    ["Learning", "Learning"], ["diffusion", "Learning"], ["vector-search", "Learning"], ["transformers", "Learning"], ["retrieval", "Learning"], ["embeddings", "Learning"], ["graph-nets", "Learning"],
+    ["Work", "Work"], ["northwind", "Work"], ["interview-prep", "Work"], ["system-design", "Work"], ["comp-research", "Work"],
+    ["Emberfall", "Games"], ["build-log", "Games"], ["mechanics", "Games"],
+    ["vault-dash", "Tools"], ["skills-index", "Tools"], ["agents-index", "Tools"],
   ];
   const gedges = [
-    ["Brain","Research"],["Brain","Learning"],["Brain","Work"],["Brain","current-focus"],["Brain","Capabilities"],["Brain","Memory"],
-    ["Research","ElectriAI"],["Research","Redtide"],["ElectriAI","grid-topology"],["ElectriAI","PMU-data"],["ElectriAI","fault-loc"],["ElectriAI","GNN-priors"],["grid-topology","GNN-priors"],
-    ["Learning","attention"],["Learning","rag-eval"],["attention","transformers"],["rag-eval","retrieval"],["rag-eval","attention"],["retrieval","embeddings"],["Learning","DSA-graphs"],
-    ["Work","morningstar"],["morningstar","interview-prep"],["morningstar","system-design"],["interview-prep","DSA-graphs"],["Work","salary"],["current-focus","morningstar"],["current-focus","ElectriAI"],
-    ["POE2","build-log"],["POE2","mechanics"],["Brain","POE2"],
-    ["Capabilities","skills-index"],["Capabilities","agents-index"],["VCC","skills-index"],["Tools","VCC"] && ["skills-index","VCC"],
-    ["current-focus","attention"],["Templates","Brain"],["Capabilities","Brain"],
-  ].filter(Boolean);
+    ["Codex","Research"],["Codex","Learning"],["Codex","Work"],["Codex","current-notes"],["Codex","Capabilities"],["Codex","Memory"],
+    ["Research","Verdant"],["Research","harvest-index"],["Verdant","canopy-features"],["Verdant","satellite-data"],["Verdant","yield-model"],["Verdant","ndvi-priors"],["canopy-features","ndvi-priors"],
+    ["Learning","diffusion"],["Learning","vector-search"],["diffusion","transformers"],["vector-search","retrieval"],["vector-search","diffusion"],["retrieval","embeddings"],["Learning","graph-nets"],
+    ["Work","northwind"],["northwind","interview-prep"],["northwind","system-design"],["interview-prep","graph-nets"],["Work","comp-research"],["current-notes","northwind"],["current-notes","Verdant"],
+    ["Emberfall","build-log"],["Emberfall","mechanics"],["Codex","Emberfall"],
+    ["Capabilities","skills-index"],["Capabilities","agents-index"],["vault-dash","skills-index"],["vault-dash","agents-index"],
+    ["current-notes","diffusion"],["Templates","Codex"],["Capabilities","Codex"],
+  ];
 
   // ---- terminal: 4 scripted Claude Code sessions (typewriter replay) ----
   // kinds: prompt, user, asst, tool, toolok, dim, done  · d = ms delay after line
   const termSessions = [
-    { name: "vault-command-center", cwd: "~/05_Tools/vault-command-center", lines: [
+    { name: "vault-dash", cwd: "~/05_Tools/vault-dash", lines: [
       { k: "prompt", t: "› ", inline: true },
-      { k: "user", t: "wire the terminal PTY bridge so panes survive a renderer reload" },
+      { k: "user", t: "add a live status strip so panes survive a renderer reload" },
       { k: "asst", t: "I'll route the pty through IPC and keep the process in main.js so an F5 only", type: true },
-      { k: "asst", t: "re-attaches xterm to the existing session.", type: true },
+      { k: "asst", t: "re-attaches the terminal to the existing session.", type: true },
       { k: "tool", t: "● Read(main.js)", d: 350 },
-      { k: "toolok", t: "  ⎿ read 3153 lines", d: 200 },
+      { k: "toolok", t: "  ⎿ read 2840 lines", d: 200 },
       { k: "tool", t: "● Edit(preload.js) — expose pty-attach", d: 500 },
-      { k: "toolok", t: "  ⎿ +1 method on window.api", d: 250 },
+      { k: "toolok", t: "  ⎿ +1 bridge method", d: 250 },
       { k: "tool", t: "● Bash(node --check terminal.js)", d: 600 },
       { k: "toolok", t: "  ⎿ ok — no syntax errors", d: 300 },
-      { k: "asst", t: "Done. Panes now reattach on reload; PTY survives F5.", type: true },
+      { k: "asst", t: "Done. Panes now reattach on reload; the pty survives F5.", type: true },
       { k: "done", t: "✔ finished · 4 tool calls · 18.2k tokens", d: 300 },
     ]},
-    { name: "ElectriAI", cwd: "~/02_Research/ElectriAI", lines: [
+    { name: "Verdant", cwd: "~/02_Research/Verdant", lines: [
       { k: "prompt", t: "› ", inline: true },
-      { k: "user", t: "run the topology-feature ablation and summarize" },
-      { k: "asst", t: "Running the ablation over {raw, +admittance, +distance, +betweenness}.", type: true },
+      { k: "user", t: "run the canopy-feature ablation and summarize" },
+      { k: "asst", t: "Running the ablation over {raw bands, +NDVI, +green-up, +canopy-cover}.", type: true },
       { k: "tool", t: "● Bash(python ablate.py --folds 5)", d: 500 },
-      { k: "dim", t: "  fold 1/5  acc=0.918", d: 260 },
-      { k: "dim", t: "  fold 3/5  acc=0.941", d: 260 },
-      { k: "dim", t: "  fold 5/5  acc=0.947", d: 260 },
-      { k: "toolok", t: "  ⎿ mean top-1: 0.947 ± 0.006", d: 250 },
-      { k: "asst", t: "Topology features add +5.5pts over raw PMU; betweenness carries most", type: true },
-      { k: "asst", t: "of the lift under missing-sensor noise.", type: true },
+      { k: "dim", t: "  fold 1/5  acc=0.884", d: 260 },
+      { k: "dim", t: "  fold 3/5  acc=0.921", d: 260 },
+      { k: "dim", t: "  fold 5/5  acc=0.931", d: 260 },
+      { k: "toolok", t: "  ⎿ mean within-±5%: 0.931 ± 0.008", d: 250 },
+      { k: "asst", t: "Canopy features add +4.7pts over raw bands; green-up carries most", type: true },
+      { k: "asst", t: "of the lift in cloudy weeks.", type: true },
       { k: "done", t: "✔ finished · 1 tool call · 22.4k tokens", d: 300 },
     ]},
-    { name: "rag-track-a", cwd: "~/03_Learning/rag", lines: [
+    { name: "retrieval-track", cwd: "~/03_Learning/retrieval", lines: [
       { k: "prompt", t: "› ", inline: true },
       { k: "user", t: "add Recall@k + nDCG to the eval harness" },
       { k: "asst", t: "Adding graded-relevance nDCG alongside the existing MRR.", type: true },
@@ -365,14 +365,14 @@ Career notes and the active pipeline.
       { k: "asst", t: "Recall@5 = 0.86, nDCG@10 = 0.79 on the dev set.", type: true },
       { k: "done", t: "✔ finished · 2 tool calls · 9.7k tokens", d: 300 },
     ]},
-    { name: "notes-agent", cwd: "~/00_The_Vault", lines: [
+    { name: "codex-agent", cwd: "~/vault", lines: [
       { k: "prompt", t: "› ", inline: true },
-      { k: "user", t: "scan the vault for notes that link to attention-mechanisms" },
-      { k: "asst", t: "Scanning for [[attention-mechanisms]] backlinks.", type: true },
-      { k: "tool", t: "● Grep([[attention-mechanisms]])", d: 400 },
+      { k: "user", t: "scan the vault for notes that link to diffusion-models" },
+      { k: "asst", t: "Scanning for [[diffusion-models]] backlinks.", type: true },
+      { k: "tool", t: "● Grep([[diffusion-models]])", d: 400 },
       { k: "toolok", t: "  ⎿ 3 files", d: 220 },
-      { k: "dim", t: "  rag-eval-notes.md", d: 180 },
-      { k: "dim", t: "  current-focus.md", d: 180 },
+      { k: "dim", t: "  vector-search-notes.md", d: 180 },
+      { k: "dim", t: "  current-notes.md", d: 180 },
       { k: "dim", t: "  transformers.md", d: 180 },
       { k: "asst", t: "3 notes link here — added them to the Files backlinks panel.", type: true },
       { k: "done", t: "✔ finished · 1 tool call · 4.1k tokens", d: 300 },

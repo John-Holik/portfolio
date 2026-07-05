@@ -97,7 +97,13 @@ body {
 .home-hd h1 { font-size: 22px; font-weight: 650; letter-spacing: -.02em; }
 .home-hd .home-sub { font-size: 12px; color: var(--mut); margin-top: 3px; font-family: var(--mono); }
 .home-hd .home-tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-.homegrid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 12px; padding: 12px 20px 30px; align-items: start; grid-auto-flow: dense; }
+/* masonry via CSS multi-columns: cards flow down each column at their natural content
+   height with no inner clipping and zero vertical gaps. column-fill: balance keeps the
+   three columns roughly even. Responsive: 3 → 2 → 1 columns. */
+.homegrid { columns: 3; column-gap: 12px; padding: 12px 20px 30px; }
+.homegrid .hcard { break-inside: avoid; -webkit-column-break-inside: avoid; width: 100%; margin: 0 0 12px; }
+@media (max-width: 1100px) { .homegrid { columns: 2; } }
+@media (max-width: 700px) { .homegrid { columns: 1; } }
 
 .hcard { background: var(--surf); border: 1px solid var(--bd); border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 2px rgba(0,0,0,.35); display: flex; flex-direction: column; min-height: 0; }
 .hc-hd { display: flex; align-items: center; margin-bottom: 12px; }
