@@ -96,15 +96,9 @@ nav {
 .brand .mark {
   width: 28px;
   height: 28px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), #4b56c9);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  box-shadow: 0 0 16px var(--accent-glow);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
 }
 .nav-links {
   display: flex;
