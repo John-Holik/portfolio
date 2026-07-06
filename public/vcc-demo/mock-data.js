@@ -301,9 +301,10 @@ Career notes and the active pipeline.
   ];
 
   // ---- graph: ~30 nodes across folders with wikilink edges ----
-  // colors lifted from the real graph.js DOMAIN_COLORS (as used by the Nebula preset)
+  // colors lifted from the real graph.js DOMAIN_COLORS (as used by the Nebula preset);
+  // About brightened from #7C83FF — the original indigo sat too close to the bg hue
   const FOLDERS = {
-    About: "#7C83FF", Research: "#34E89E", Learning: "#3FD0EE", Work: "#FF6FB0", Games: "#FFB23E", Tools: "#FF7A5C",
+    About: "#9AA3FF", Research: "#34E89E", Learning: "#3FD0EE", Work: "#FF6FB0", Games: "#FFB23E", Tools: "#FF7A5C",
   };
   const GRAPH_BG = "#0d0b28"; // Nebula preset background
   const gnodes = [

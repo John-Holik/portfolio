@@ -492,8 +492,13 @@
   }
   function fogColor(hex, fog) {
     const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-    const t = fog * 0.82;
+    const t = fog * 0.68;
     return `rgb(${Math.round(r + (BG_RGB[0] - r) * t)},${Math.round(g + (BG_RGB[1] - g) * t)},${Math.round(b + (BG_RGB[2] - b) * t)})`;
+  }
+  // domain color lightened toward white by t, with alpha a — used for edge strokes
+  function edgeTint(hex, t, a) {
+    const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${Math.round(r + (255 - r) * t)},${Math.round(g + (255 - g) * t)},${Math.round(b + (255 - b) * t)},${a})`;
   }
   function tickGraph() {
     physics();
@@ -508,22 +513,28 @@
     ctx.clearRect(0, 0, W, H);
     // subtle radial vignette so the nebula reads as depth, not a flat fill
     const vg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.7);
-    vg.addColorStop(0, "rgba(40,32,90,.35)"); vg.addColorStop(1, "rgba(13,11,40,0)");
+    vg.addColorStop(0, "rgba(36,28,84,.25)"); vg.addColorStop(1, "rgba(13,11,40,0)");
     ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
     proj = gnodes.map((n) => project(n, W, H));
-    // edges (drawn first, back-to-front implicitly fine since they're translucent)
+    // edges (drawn first, additive so they stay readable against the dark bg and node glows);
+    // each edge is a gradient between its endpoints' lightened domain colors, faded by depth
+    ctx.globalCompositeOperation = "lighter";
     gedges.forEach((e) => {
       const pa = proj[e.a], pb = proj[e.b]; if (!pa || !pb) return;
       const lit = hoverNode && (gnodes[e.a] === hoverNode || gnodes[e.b] === hoverNode);
-      const src = gnodes[e.a];
+      const dim = hoverNode && !lit;
       const fog = (pa.fog + pb.fog) / 2;
-      ctx.lineWidth = Math.max(0.4, (lit ? 1.4 : 0.7) * ((pa.scale + pb.scale) / 2));
-      ctx.strokeStyle = lit ? fogColor(M.FOLDERS[src.folder], fog * 0.4) : fogColor(M.FOLDERS[src.folder], Math.min(1, fog + 0.35));
-      ctx.globalAlpha = lit ? 0.75 : 0.3;      // Nebula linkOpacity ~0.3
+      const a = (lit ? 0.95 : dim ? 0.1 : 0.5) * (1 - fog * 0.6);
+      if (a < 0.02) return;
+      const grad = ctx.createLinearGradient(pa.sx, pa.sy, pb.sx, pb.sy);
+      grad.addColorStop(0, edgeTint(M.FOLDERS[gnodes[e.a].folder], 0.35, a));
+      grad.addColorStop(1, edgeTint(M.FOLDERS[gnodes[e.b].folder], 0.35, a));
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = Math.max(0.6, (lit ? 1.8 : 1.1) * ((pa.scale + pb.scale) / 2));
       ctx.beginPath(); ctx.moveTo(pa.sx, pa.sy); ctx.lineTo(pb.sx, pb.sy); ctx.stroke();
     });
-    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
 
     // nodes: painter-sort far -> near
     const order = gnodes.map((n, i) => i).filter((i) => proj[i]).sort((a, b) => proj[b].zEff - proj[a].zEff);
@@ -534,8 +545,8 @@
       const lit = n === hoverNode;
       const col = fogColor(c, p.fog);
       // glow halo (radial gradient) — brighter for near nodes, per Nebula's emissive orbs
-      const glowR = r * (lit ? 5.5 : 3.4);
-      const glowA = (lit ? 0.55 : 0.32) * (1 - p.fog * 0.7);
+      const glowR = r * (lit ? 5.5 : 3.0);
+      const glowA = (lit ? 0.55 : 0.26) * (1 - p.fog * 0.7);
       if (glowA > 0.02) {
         const g = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, glowR);
         g.addColorStop(0, hexA(c, glowA)); g.addColorStop(0.5, hexA(c, glowA * 0.35)); g.addColorStop(1, hexA(c, 0));
