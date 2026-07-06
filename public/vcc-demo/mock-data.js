@@ -273,32 +273,356 @@ Career notes and the active pipeline.
 - [[northwind-application]] — primary target (ML Engineer)
 - Networking log, comp research, and interview retros live here.`,
     },
+    "00_About/Templates/Templates.md": {
+      props: { type: "hub", updated: "2026-06-30" },
+      links: ["Codex"],
+      body: `# Templates
+
+Reusable note scaffolds so every note starts with the right frontmatter and shape.
+
+## Available
+- **_note** — default frontmatter (\`type\`, \`updated\`, \`tags\`)
+- **_project** — adds \`status\` and a Status / Next section
+- **_study** — a learning note with a "the core" + "open questions" split
+- **_memory** — durable-fact schema (\`name\` / \`description\` / \`metadata.type\`)
+
+New notes copy the matching template so the graph and search stay consistent. Linked from [[Codex]].`,
+    },
+    "00_About/Capabilities/Capabilities.md": {
+      props: { type: "hub", updated: "2026-07-01" },
+      links: ["skills-index", "agents-index", "Codex"],
+      body: `# Capabilities
+
+The durable index of what I've taught the assistant to do.
+
+- [[skills-index]] — authored skills (\`~/.claude/skills/*\`)
+- [[agents-index]] — authored subagents (\`~/.claude/agents/*\`)
+
+Skills and agents are user-level, so they work across every project. When a manual workflow repeats, it graduates into one of these. Rolled up under [[Codex]].`,
+    },
+    "00_About/Memory/MEMORY.md": {
+      props: { type: "index", entries: 18, updated: "2026-07-05" },
+      links: ["Codex"],
+      body: `# Memory index
+
+One line per durable memory — loaded at session start so a fresh assistant has context.
+
+- **how-i-work** — environment, code style, writing rules
+- **working-rules** — terse / verify / push back
+- **verdant-baseline** — the 88.4% GBT number and why it's the floor
+- **deploy-path** — portfolio ships via git push, not wrangler
+
+> Facts here reflect what was true when written. Verify names against the repo before acting. Hub: [[Codex]].`,
+    },
+    "01_Games/Emberfall/Emberfall.md": {
+      props: { type: "game", status: "active", updated: "2026-07-03" },
+      links: ["build-log", "mechanics"],
+      body: `# Emberfall
+
+Notes and theorycraft for my current action-RPG character.
+
+## Current build
+Ember Sorcerer — ignite-stacking, crit-scaled. Clears well; a little squishy into hard-hitting bosses.
+
+## Focus
+- Convert more spell damage to fire for the ignite multiplier
+- Cap chaos resistance before the next boss tier
+
+See the [[build-log]] for session-by-session progress and [[mechanics]] for the damage math.`,
+    },
+    "01_Games/Emberfall/build-log.md": {
+      props: { type: "log", updated: "2026-07-03" },
+      links: ["Emberfall", "mechanics"],
+      body: `# Build log
+
+Session-by-session progress on the [[Emberfall]] character.
+
+- **Lvl 74** — swapped to the ignite cluster; single-target damage roughly doubled
+- **Lvl 78** — capped chaos res, dropped a life roll to do it; survivability up
+- **Lvl 82** — respec'd the crit wheel per [[mechanics]]; still tuning
+
+## Next
+Farm the tier-3 map set for a better weapon base, then re-evaluate the crit vs. ignite split.`,
+    },
+    "01_Games/Emberfall/mechanics.md": {
+      props: { type: "note", updated: "2026-07-02" },
+      links: ["Emberfall"],
+      body: `# Mechanics
+
+The damage math behind the [[Emberfall]] build.
+
+## Ignite
+Ignite deals a fraction of the base hit as fire damage over time. Bigger hits mean bigger ignites, so crit and hit-damage both feed it.
+
+## Crit
+\`effective = base × (1 + critChance × (critMulti − 1))\`
+
+Past ~70% crit chance the returns flatten — that's when hit-damage nodes start to win.`,
+    },
+    "02_Research/Research.md": {
+      props: { type: "hub", updated: "2026-07-02" },
+      links: ["Verdant", "harvest-index"],
+      body: `# Research
+
+The research hub. Flagship project plus supporting notes.
+
+- [[Verdant]] — crop-yield forecasting from satellite imagery (active)
+- [[harvest-index]] — the domain background the yield target rests on
+
+Everything here feeds toward a publishable draft this cycle.`,
+    },
+    "02_Research/Verdant/satellite-data.md": {
+      props: { type: "dataset", source: "Sentinel-2", updated: "2026-06-27" },
+      links: ["Verdant", "ndvi-priors"],
+      body: `# Satellite data
+
+The imagery pipeline that feeds [[Verdant]].
+
+## Source
+- **Sentinel-2** L2A surface reflectance, 10 m bands (B2/B3/B4/B8)
+- Revisit ~5 days; clouds masked with the scene classification layer
+
+## Processing
+- Clip to field boundaries, resample to a common grid
+- Stack per-field time series → input to the temporal model
+
+Missing acquisitions (cloudy weeks) are the main robustness risk. [[ndvi-priors]] help fill the gaps.`,
+    },
+    "02_Research/Verdant/yield-model.md": {
+      props: { type: "model", status: "training", updated: "2026-07-01" },
+      links: ["Verdant", "canopy-features"],
+      body: `# Yield model
+
+The temporal CNN at the core of [[Verdant]].
+
+## Architecture
+1D conv over the NDVI time-axis → global pool → MLP head to a scalar yield.
+
+## Results
+- Baseline GBT: **88.4%** within ±5%
+- Temporal CNN: **93.1%**, and steadier in cloudy weeks
+
+Inputs come from [[canopy-features]]. Next: the ablation that isolates their contribution vs. raw bands.`,
+    },
+    "02_Research/Verdant/ndvi-priors.md": {
+      props: { type: "note", updated: "2026-06-26" },
+      links: ["canopy-features", "satellite-data"],
+      body: `# NDVI priors
+
+Seasonal shape priors that regularize sparse [[satellite-data]].
+
+## Idea
+A field's NDVI follows a smooth green-up → peak → senescence curve. Fitting a double-logistic to the observed points lets us interpolate missing dates and denoise noisy ones.
+
+Feeds cleaner sequences into [[canopy-features]] before they hit the model.`,
+    },
+    "02_Research/harvest-index.md": {
+      props: { type: "note", updated: "2026-06-24" },
+      links: ["Research", "Verdant"],
+      body: `# Harvest index
+
+Domain background: the ratio of grain mass to total above-ground biomass.
+
+Why it matters for [[Verdant]]: the model predicts yield, but biomass is what the canopy signal actually tracks. The harvest index is the (crop- and season-dependent) bridge between the two, and part of why per-crop calibration helps. Rolls up to [[Research]].`,
+    },
+    "03_Learning/Learning.md": {
+      props: { type: "hub", updated: "2026-07-04" },
+      links: ["diffusion", "vector-search", "graph-nets"],
+      body: `# Learning
+
+Study hub. The retrieval-systems track is the live one.
+
+- [[vector-search]] · [[retrieval]] · [[embeddings]] — the retrieval track
+- [[diffusion]] · [[transformers]] — generative fundamentals
+- [[graph-nets]] — for interview breadth
+
+Notes here double as interview prep.`,
+    },
+    "03_Learning/transformers.md": {
+      props: { type: "study", updated: "2026-07-03" },
+      links: ["diffusion"],
+      body: `# Transformers
+
+Attention, from the ground up.
+
+## The core
+\`Attention(Q, K, V) = softmax(QKᵀ / √d) · V\`
+
+Each token builds a query, compares it to every key, and takes a weighted sum of values. Multi-head runs several of these in parallel subspaces.
+
+## Why it stuck
+No recurrence → fully parallel over sequence length, and long-range dependencies are one hop away. Shares the embedding backbone with [[diffusion]] and the retrieval track.`,
+    },
+    "03_Learning/retrieval.md": {
+      props: { type: "study", updated: "2026-07-02" },
+      links: ["vector-search", "embeddings"],
+      body: `# Retrieval
+
+The R in RAG: fetch the right context before generating.
+
+## Pipeline
+1. Embed the query ([[embeddings]])
+2. Nearest-neighbour search over the index ([[vector-search]])
+3. Optionally re-rank the top-k with a cross-encoder
+
+> Debug the stages separately: a bad answer from perfect context is a generation bug, not a retrieval one.`,
+    },
+    "03_Learning/embeddings.md": {
+      props: { type: "study", updated: "2026-07-01" },
+      links: ["retrieval", "vector-search"],
+      body: `# Embeddings
+
+Dense vectors where distance ≈ semantic similarity.
+
+## Notes
+- Normalize before cosine similarity, or use dot-product on unit vectors
+- Chunk size matters as much as the model: too big dilutes, too small fragments
+- Cache aggressively — embedding is the cheap-to-reuse part
+
+Consumed by [[retrieval]] and [[vector-search]].`,
+    },
+    "03_Learning/graph-nets.md": {
+      props: { type: "study", updated: "2026-06-29" },
+      links: ["Learning", "interview-prep"],
+      body: `# Graph neural networks
+
+Message passing over graph structure.
+
+## The core
+Each node updates its state by aggregating (sum/mean/max) transformed messages from its neighbours, repeated for K layers so information travels K hops.
+
+On the list for [[interview-prep]] breadth; part of the [[Learning]] track.`,
+    },
+    "04_Work/interview-prep.md": {
+      props: { type: "note", status: "in-progress", updated: "2026-07-04" },
+      links: ["northwind", "system-design", "graph-nets"],
+      body: `# Interview prep
+
+Prep tracker for the [[northwind]] loop.
+
+## DSA
+- Arrays / two-pointer, hashing — solid
+- Graphs / BFS-DFS — reviewing (see [[graph-nets]] for the ML side)
+- DP — the weak spot, daily reps
+
+## ML depth
+Bias/variance, regularization, the metrics from my retrieval notes.
+
+Pairs with [[system-design]] for the architecture round.`,
+    },
+    "04_Work/system-design.md": {
+      props: { type: "note", updated: "2026-07-03" },
+      links: ["northwind", "interview-prep"],
+      body: `# System design
+
+Notes for the design round of the [[northwind]] loop.
+
+## Framework
+Requirements → estimates → API → data model → scale → tradeoffs.
+
+## ML-flavoured prompts
+- Design a feature store
+- Serve a model at low latency (batching, caching, quantization)
+- An online eval / monitoring pipeline
+
+Sibling to [[interview-prep]].`,
+    },
+    "04_Work/comp-research.md": {
+      props: { type: "note", updated: "2026-06-28" },
+      links: ["Work"],
+      body: `# Comp research
+
+Notes to negotiate from data, not vibes.
+
+- Level the role first (title inflation is real), then band it
+- Total comp = base + bonus + equity; discount equity by stage/liquidity
+- Always get a range before naming a number
+
+Feeds the [[Work]] pipeline.`,
+    },
+    "05_Tools/vault-dash/vault-dash.md": {
+      props: { type: "tool", status: "active", stack: "Electron", updated: "2026-07-05" },
+      links: ["skills-index", "agents-index"],
+      body: `# vault-dash
+
+A desktop control center for the vault and the assistant setup. (This demo is a static replica of it.)
+
+## Features
+- Embedded terminals running the CLI, side by side
+- A file browser with a markdown preview and backlinks
+- This knowledge graph
+- A gamification layer (XP, coins, activity heatmap)
+
+Indexes what I've built in [[skills-index]] and [[agents-index]].`,
+    },
+    "05_Tools/vault-dash/skills-index.md": {
+      props: { type: "index", updated: "2026-07-05" },
+      links: ["vault-dash", "Capabilities"],
+      body: `# Skills index
+
+Authored skills surfaced to the CLI.
+
+- **build-loot-filter** — generate a loot filter from a build
+- **job-search** — pull and score postings into a sheet
+- **save-session** — write a session summary into the vault
+- **tree-path** — optimal passive-tree routing
+
+Surfaced by [[vault-dash]]; catalogued under [[Capabilities]].`,
+    },
+    "05_Tools/vault-dash/agents-index.md": {
+      props: { type: "index", updated: "2026-07-05" },
+      links: ["vault-dash", "Capabilities"],
+      body: `# Agents index
+
+Authored subagents.
+
+- **repo-audit** — multi-agent codebase review
+- **academic-researcher** — cited literature search
+- **code-optimizer** — profile-first performance passes
+
+Composed from [[vault-dash]] and tracked in [[Capabilities]].`,
+    },
   };
 
-  // folder tree structure (dirs + files, referencing notes above)
-  const tree = [
-    { type: "dir", name: "00_About", children: [
-      { type: "file", name: "Codex.md", rel: "00_About/Codex.md" },
-      { type: "file", name: "current-notes.md", rel: "00_About/current-notes.md" },
-    ]},
-    { type: "dir", name: "02_Research", children: [
-      { type: "dir", name: "Verdant", children: [
-        { type: "file", name: "Verdant.md", rel: "02_Research/Verdant/Verdant.md" },
-        { type: "file", name: "canopy-features.md", rel: "02_Research/Verdant/canopy-features.md" },
-      ]},
-    ]},
-    { type: "dir", name: "03_Learning", children: [
-      { type: "file", name: "diffusion-models.md", rel: "03_Learning/diffusion-models.md" },
-      { type: "file", name: "vector-search-notes.md", rel: "03_Learning/vector-search-notes.md" },
-    ]},
-    { type: "dir", name: "04_Work", children: [
-      { type: "file", name: "Work.md", rel: "04_Work/Work.md" },
-      { type: "file", name: "northwind-application.md", rel: "04_Work/northwind-application.md" },
-    ]},
-    { type: "dir", name: "05_Tools", children: [
-      { type: "file", name: "vault-dash", rel: null },
-    ]},
-  ];
+  // graph node name -> the note that opens when you click it
+  const NODE_PATHS = {
+    Codex: "00_About/Codex.md", "current-notes": "00_About/current-notes.md",
+    Templates: "00_About/Templates/Templates.md", Capabilities: "00_About/Capabilities/Capabilities.md",
+    Memory: "00_About/Memory/MEMORY.md",
+    Research: "02_Research/Research.md", Verdant: "02_Research/Verdant/Verdant.md",
+    "canopy-features": "02_Research/Verdant/canopy-features.md", "satellite-data": "02_Research/Verdant/satellite-data.md",
+    "harvest-index": "02_Research/harvest-index.md", "yield-model": "02_Research/Verdant/yield-model.md",
+    "ndvi-priors": "02_Research/Verdant/ndvi-priors.md",
+    Learning: "03_Learning/Learning.md", diffusion: "03_Learning/diffusion-models.md",
+    "vector-search": "03_Learning/vector-search-notes.md", transformers: "03_Learning/transformers.md",
+    retrieval: "03_Learning/retrieval.md", embeddings: "03_Learning/embeddings.md",
+    "graph-nets": "03_Learning/graph-nets.md",
+    Work: "04_Work/Work.md", northwind: "04_Work/northwind-application.md",
+    "interview-prep": "04_Work/interview-prep.md", "system-design": "04_Work/system-design.md",
+    "comp-research": "04_Work/comp-research.md",
+    Emberfall: "01_Games/Emberfall/Emberfall.md", "build-log": "01_Games/Emberfall/build-log.md",
+    mechanics: "01_Games/Emberfall/mechanics.md",
+    "vault-dash": "05_Tools/vault-dash/vault-dash.md", "skills-index": "05_Tools/vault-dash/skills-index.md",
+    "agents-index": "05_Tools/vault-dash/agents-index.md",
+  };
+
+  // folder tree (dirs + files) built from every note path so the Files tab shows the
+  // whole fictional vault and graph "Open in Files →" always resolves
+  function makeTree(paths) {
+    const root = [], dirIndex = new Map([["", root]]);
+    paths.slice().sort().forEach((p) => {
+      const parts = p.split("/");
+      let prefix = "", parent = root;
+      parts.forEach((part, i) => {
+        if (i === parts.length - 1) { parent.push({ type: "file", name: part, rel: p }); return; }
+        const np = prefix ? prefix + "/" + part : part;
+        if (!dirIndex.has(np)) { const arr = []; parent.push({ type: "dir", name: part, children: arr }); dirIndex.set(np, arr); }
+        parent = dirIndex.get(np); prefix = np;
+      });
+    });
+    return root;
+  }
+  const tree = makeTree(Object.keys(notes));
 
   // ---- graph: ~30 nodes across folders with wikilink edges ----
   // colors lifted from the real graph.js DOMAIN_COLORS (as used by the Nebula preset);
@@ -380,6 +704,6 @@ Career notes and the active pipeline.
     ]},
   ];
 
-  return { home, todos, mstar, caps, tokens, game, RARITY, heatmap, notes, tree, FOLDERS, GRAPH_BG, gnodes, gedges, termSessions,
+  return { home, todos, mstar, caps, tokens, game, RARITY, heatmap, notes, tree, NODE_PATHS, FOLDERS, GRAPH_BG, gnodes, gedges, termSessions,
     DOMAIN_LABELS: { "00_About": "About", "01_Games": "Games", "02_Research": "Research", "03_Learning": "Learning", "04_Work": "Work", "05_Tools": "Tools" } };
 })();

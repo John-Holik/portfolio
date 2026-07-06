@@ -176,17 +176,29 @@
     if (tb) tb.onclick = () => addTodo(ti);
     if (ti) ti.onkeydown = (ev) => { if (ev.key === "Enter") addTodo(ti); };
   }
+  // update only the Todo + Recently-completed card bodies in place — never rebuild the
+  // whole grid, so no other card can move when a task is checked off.
+  function refreshTodos() {
+    const tb = $('.hc-body[data-w="todo"]'), db = $('.hc-body[data-w="done"]');
+    if (tb) tb.innerHTML = todoBody();
+    if (db) db.innerHTML = doneBody();
+    $$(".todo").forEach((e) => (e.onclick = () => completeTodo(+e.dataset.line)));
+    $$(".doneitem").forEach((e) => (e.onclick = () => reopenTodo(+e.dataset.line)));
+    const ti = $("#todoinput"), tbtn = $("#todoaddbtn");
+    if (tbtn) tbtn.onclick = () => addTodo(ti);
+    if (ti) ti.onkeydown = (ev) => { if (ev.key === "Enter") addTodo(ti); };
+  }
   function completeTodo(line) {
     const i = state.todos.open.findIndex((t) => t.line === line); if (i < 0) return;
     const [t] = state.todos.open.splice(i, 1);
     t.date = new Date().toLocaleDateString([], { month: "2-digit", day: "2-digit" });
-    state.todos.done.unshift(t); renderHome();
+    state.todos.done.unshift(t); refreshTodos();
   }
   function reopenTodo(line) {
     const i = state.todos.done.findIndex((t) => t.line === line); if (i < 0) return;
-    const [t] = state.todos.done.splice(i, 1); state.todos.open.push(t); renderHome();
+    const [t] = state.todos.done.splice(i, 1); state.todos.open.push(t); refreshTodos();
   }
-  function addTodo(input) { const v = (input.value || "").trim(); if (!v) return; state.todos.open.push({ line: ++todoLineSeq, text: v }); renderHome(); setTimeout(() => { const n = $("#todoinput"); if (n) n.focus(); }, 0); }
+  function addTodo(input) { const v = (input.value || "").trim(); if (!v) return; state.todos.open.push({ line: ++todoLineSeq, text: v }); refreshTodos(); const n = $("#todoinput"); if (n) n.focus(); }
   function toggleMstar(i) {
     const m = state.mstar; m.tasks[i].done = !m.tasks[i].done;
     m.done = m.tasks.filter((t) => t.done).length; m.pct = Math.round((m.done / m.total) * 100); renderHome();
@@ -413,9 +425,10 @@
   //   tinted by their source node's color, persistent labels on hub nodes, slow idle rotation.
   const BG = M.GRAPH_BG, BG_RGB = [13, 11, 40];
   const FOCAL = 620;                       // perspective focal length
-  let graphStarted = false, gnodes, gedges, graphRAF, hoverNode = null;
+  let graphStarted = false, gnodes, gedges, graphRAF, hoverNode = null, selNode = null;
   let yaw = 0.5, pitch = -0.25, dist = 620; // camera orbit + zoom
   let orbiting = false, lastPx = 0, lastPy = 0, lastInteract = 0;
+  let pressX = 0, pressY = 0, dragged = false, downNode = null; // click-vs-drag tracking
 
   function startGraph() {
     const legend = $("#glegend");
@@ -435,6 +448,8 @@
   }
   function initGraph() {
     resizeGraph();
+    selNode = null;
+    if (gnodePanel) gnodePanel.style.display = "none";
     const nameIdx = {};
     gnodes = M.gnodes.map(([name, folder], i) => {
       nameIdx[name] = i;
@@ -520,10 +535,11 @@
     // edges (drawn first, additive so they stay readable against the dark bg and node glows);
     // each edge is a gradient between its endpoints' lightened domain colors, faded by depth
     ctx.globalCompositeOperation = "lighter";
+    const active = hoverNode || selNode;   // clicked node stays lit even when not hovered
     gedges.forEach((e) => {
       const pa = proj[e.a], pb = proj[e.b]; if (!pa || !pb) return;
-      const lit = hoverNode && (gnodes[e.a] === hoverNode || gnodes[e.b] === hoverNode);
-      const dim = hoverNode && !lit;
+      const lit = active && (gnodes[e.a] === active || gnodes[e.b] === active);
+      const dim = active && !lit;
       const fog = (pa.fog + pb.fog) / 2;
       const a = (lit ? 0.95 : dim ? 0.1 : 0.5) * (1 - fog * 0.6);
       if (a < 0.02) return;
@@ -542,7 +558,7 @@
       const n = gnodes[i], p = proj[i], c = M.FOLDERS[n.folder];
       const base = 3.4 + Math.min(6, n.deg * 1.0);
       const r = Math.max(1.2, base * p.scale);
-      const lit = n === hoverNode;
+      const lit = n === hoverNode || n === selNode;
       const col = fogColor(c, p.fog);
       // glow halo (radial gradient) — brighter for near nodes, per Nebula's emissive orbs
       const glowR = r * (lit ? 5.5 : 3.0);
@@ -561,9 +577,9 @@
     ctx.font = "11px 'JetBrains Mono', ui-monospace, monospace"; ctx.textAlign = "center";
     order.forEach((i) => {
       const n = gnodes[i], p = proj[i];
-      const show = n === hoverNode || (n.deg >= 4 && p.fog < 0.6);
+      const show = n === hoverNode || n === selNode || (n.deg >= 4 && p.fog < 0.6);
       if (!show) return;
-      const em = n === hoverNode;
+      const em = n === hoverNode || n === selNode;
       const r = Math.max(1.2, (3.4 + Math.min(6, n.deg)) * p.scale);
       const a = em ? 1 : (1 - p.fog) * 0.85;
       if (em) { const w = ctx.measureText(n.name).width + 12; ctx.fillStyle = "rgba(20,17,48,.9)"; ctx.fillRect(p.sx - w / 2, p.sy - r - 22, w, 16); }
@@ -584,10 +600,11 @@
     return best;
   }
   function evtPos(e) { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
-  canvas.addEventListener("mousedown", (e) => { const p = evtPos(e); orbiting = true; lastPx = p.x; lastPy = p.y; lastInteract = Date.now(); canvas.classList.add("grabbing"); });
+  canvas.addEventListener("mousedown", (e) => { const p = evtPos(e); orbiting = true; lastPx = p.x; lastPy = p.y; pressX = p.x; pressY = p.y; dragged = false; downNode = pickNode(p.x, p.y); lastInteract = Date.now(); canvas.classList.add("grabbing"); });
   canvas.addEventListener("mousemove", (e) => {
     const p = evtPos(e); lastInteract = Date.now();
     if (orbiting) {
+      if (Math.hypot(p.x - pressX, p.y - pressY) > 4) dragged = true;   // real drag, not a click
       yaw += (p.x - lastPx) * 0.006;
       pitch += (p.y - lastPy) * 0.006;
       pitch = Math.max(-1.35, Math.min(1.35, pitch));
@@ -597,9 +614,73 @@
       canvas.style.cursor = hoverNode ? "pointer" : "grab";
     }
   });
-  window.addEventListener("mouseup", () => { orbiting = false; lastInteract = Date.now(); canvas.classList.remove("grabbing"); });
+  window.addEventListener("mouseup", () => {
+    orbiting = false; lastInteract = Date.now(); canvas.classList.remove("grabbing");
+    if (!dragged && downNode) showGraphNode(downNode);   // a click (no drag) on a node opens its info
+    downNode = null;
+  });
   canvas.addEventListener("wheel", (e) => { e.preventDefault(); dist = Math.max(300, Math.min(1150, dist + e.deltaY * 0.5)); lastInteract = Date.now(); }, { passive: false });
   window.addEventListener("resize", () => { if (graphStarted && activeTab === "graph") resizeGraph(); });
+
+  // ---------- graph node info panel (mirrors the real app's snapshot panel) ----------
+  let gnodePanel = null;
+  function graphPanel() {
+    if (gnodePanel) return gnodePanel;
+    const p = document.createElement("div");
+    p.className = "gnode"; p.style.display = "none";
+    p.innerHTML =
+      `<div class="gnode-hd"><span class="gnode-dom"><i></i><span class="gnode-domlab"></span></span><button class="gnode-close" title="Close">✕</button></div>
+       <div class="gnode-title"></div>
+       <div class="gnode-meta"></div>
+       <div class="gnode-body"></div>
+       <button class="gnode-open">Open in Files →</button>`;
+    $("#graphhost").appendChild(p);
+    p.querySelector(".gnode-close").onclick = () => { p.style.display = "none"; selNode = null; };
+    gnodePanel = p;
+    return p;
+  }
+  // resolve a [[wikilink]] to a graph node — by node name, else by note filename
+  function resolveGraphLink(name) {
+    const q = String(name).trim().toLowerCase();
+    let key = Object.keys(M.NODE_PATHS).find((k) => k.toLowerCase() === q);
+    if (!key) {
+      const hit = Object.entries(M.NODE_PATHS).find(([, path]) => path.split("/").pop().replace(/\.md$/, "").toLowerCase() === q);
+      key = hit && hit[0];
+    }
+    return key ? gnodes.find((n) => n.name === key) || null : null;
+  }
+  function showGraphNode(node) {
+    const p = graphPanel();
+    const path = M.NODE_PATHS[node.name];
+    const note = path ? M.notes[path] : null;
+    const col = M.FOLDERS[node.folder];
+    selNode = node;
+    p.querySelector(".gnode-dom i").style.background = col;
+    p.querySelector(".gnode-domlab").textContent = node.folder;
+    const title = p.querySelector(".gnode-title");
+    title.textContent = node.name; title.style.color = col;
+    p.querySelector(".gnode-meta").textContent = `${node.deg} link${node.deg === 1 ? "" : "s"} · ${path || node.name}`;
+    const body = p.querySelector(".gnode-body");
+    if (note) {
+      let props = "";
+      if (note.props && Object.keys(note.props).length) {
+        props = `<div class="gnode-props">` + Object.entries(note.props)
+          .map(([k, v]) => `<div class="p"><span class="k">${esc(k)}</span><span class="v">${esc(String(v))}</span></div>`).join("") + `</div>`;
+      }
+      body.innerHTML = props + `<div class="doc gnode-doc">${mdToHtml(note.body)}</div>`;
+      $$(".wikilink", body).forEach((w) => (w.onclick = () => {
+        const t = resolveGraphLink(w.dataset.link);
+        if (t) showGraphNode(t);   // re-point the panel to the linked node, staying in the graph
+      }));
+    } else {
+      body.innerHTML = `<p class="gnode-note">No preview for this node.</p>`;
+    }
+    const openBtn = p.querySelector(".gnode-open");
+    if (note) { openBtn.style.display = ""; openBtn.onclick = () => { activateTab("files"); openFile(path); history.replaceState(null, "", "#files"); }; }
+    else openBtn.style.display = "none";
+    body.scrollTop = 0;
+    p.style.display = "flex";
+  }
 
   // ---------- PROFILE ----------
   let profileBuilt = false;
