@@ -48,13 +48,14 @@ export const featured: FeaturedProject[] = [
     title: 'ElectriAI Learning Games',
     tag: 'GAMES · LIVE',
     description:
-      "Browser games that turn ElectriAI's research into hands-on learning. Each is a self-contained HTML5 build with a question-driven economy, CSV/JSON question upload, and localStorage progress, mapping to the project's 10-class electrical-construction schema.",
+      "Browser games that turn ElectriAI's research into hands-on learning, from arcade quizzes to Arc Descent, a full 3D action dungeon crawler where questions are the loot economy. Every game is a dependency-light browser build with a question-driven economy, CSV/JSON question upload, and localStorage progress, mapping to the project's 10-class electrical-construction schema.",
     metrics: [
-      { num: '4', label: 'games live in-browser' },
-      { num: '174', label: 'bundled questions' },
+      { num: '5', label: 'games live in-browser' },
+      { num: '515', label: 'bundled questions' },
     ],
-    stack: ['HTML5', 'Canvas', 'JavaScript', 'localStorage'],
+    stack: ['HTML5', 'Canvas', 'Three.js', 'JavaScript', 'localStorage'],
     links: [
+      { label: 'Arc Descent', href: 'https://john-holik.github.io/arc-descent/' },
       { label: 'Grid Defense', href: 'https://john-holik.github.io/grid-defense/' },
       { label: 'Site Runner', href: 'https://john-holik.github.io/site-runner/' },
       { label: 'Power Route', href: 'https://john-holik.github.io/power-route/' },
