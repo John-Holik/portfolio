@@ -50,14 +50,15 @@ export const featured: FeaturedProject[] = [
     description:
       "Browser games that turn ElectriAI's research into hands-on learning. Each is a self-contained HTML5 build with a question-driven economy, CSV/JSON question upload, and localStorage progress, mapping to the project's 10-class electrical-construction schema.",
     metrics: [
-      { num: '3', label: 'games live in-browser' },
-      { num: '132', label: 'bundled questions' },
+      { num: '4', label: 'games live in-browser' },
+      { num: '174', label: 'bundled questions' },
     ],
     stack: ['HTML5', 'Canvas', 'JavaScript', 'localStorage'],
     links: [
       { label: 'Grid Defense', href: 'https://john-holik.github.io/grid-defense/' },
       { label: 'Site Runner', href: 'https://john-holik.github.io/site-runner/' },
       { label: 'Power Route', href: 'https://john-holik.github.io/power-route/' },
+      { label: 'Circuit Duel', href: 'https://john-holik.github.io/circuit-duel/' },
     ],
   },
   {
