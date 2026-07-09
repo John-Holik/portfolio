@@ -12,7 +12,7 @@ export const site = {
   researchLine: 'Independent researcher, ElectriAI',
 
   // Contact
-  email: 'johnholikiii@outlook.com',
+  email: 'jholik.dev@gmail.com',
   github: 'https://github.com/John-Holik',
   linkedin: 'https://linkedin.com/in/john-holik-iii',
 
