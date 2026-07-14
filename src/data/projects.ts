@@ -37,8 +37,8 @@ export const featured: FeaturedProject[] = [
     description:
       'An end-to-end LLM pipeline analyzing an electrical-construction media corpus: data collection, GPT-based classification, human expert annotation, and rigorous evaluation, plus a deployed retrieval-augmented chatbot. Flagship research, journal manuscript in progress.',
     metrics: [
-      { num: '0.897', label: "Cohen's κ, human vs. model" },
-      { num: '330K+', label: 'comments processed' },
+      { num: '0.847', label: "Cohen's κ, human vs. model" },
+      { num: '794', label: 'videos analyzed' },
       { num: '10', label: 'class category schema' },
     ],
     stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
