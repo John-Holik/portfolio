@@ -13,17 +13,36 @@ const { project } = Astro.props;
     <h3>{project.title}</h3>
     <span class:list={['tag', { live: project.flagship }]}>{project.tag}</span>
   </div>
+  {project.subtitle && <p class="subtitle">{project.subtitle}</p>}
   <p class="desc">{project.description}</p>
-  <div class="metrics">
-    {
-      project.metrics.map((m) => (
-        <div class="metric">
-          <div class="num">{m.num}</div>
-          <div class="lbl">{m.label}</div>
-        </div>
-      ))
-    }
-  </div>
+  {
+    project.metricGroups ? (
+      <div class="metric-groups">
+        {project.metricGroups.map((g) => (
+          <div class="metric-group">
+            <div class="mg-heading">{g.heading}</div>
+            <div class="metrics">
+              {g.metrics.map((m) => (
+                <div class="metric">
+                  <div class="num">{m.num}</div>
+                  <div class="lbl">{m.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="metrics">
+        {project.metrics.map((m) => (
+          <div class="metric">
+            <div class="num">{m.num}</div>
+            <div class="lbl">{m.label}</div>
+          </div>
+        ))}
+      </div>
+    )
+  }
   <div class="stack">
     {project.stack.map((s) => <span class="chip">{s}</span>)}
   </div>

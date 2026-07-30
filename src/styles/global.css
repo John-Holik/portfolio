@@ -322,6 +322,12 @@ nav {
   color: var(--accent-soft);
   border-color: rgba(110, 121, 230, 0.4);
 }
+.card .subtitle {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--accent-soft);
+  margin: -4px 0 12px;
+}
 .card .desc {
   color: var(--text-dim);
   font-size: 15px;
@@ -333,6 +339,32 @@ nav {
   gap: 40px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+}
+/* Grouped metrics: one labelled band per pipeline stage (raw data, ML, RAG). */
+.metric-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.metric-group {
+  border-left: 2px solid var(--border);
+  padding-left: 14px;
+}
+.mg-heading {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+.metric-group .metrics {
+  gap: 32px;
+  margin-bottom: 0;
+}
+.metric-group .metric .num {
+  font-size: 20px;
 }
 .metric .num {
   font-family: var(--font-mono);

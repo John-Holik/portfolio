@@ -12,12 +12,20 @@ export interface Link {
   href: string;
 }
 
+export interface MetricGroup {
+  heading: string;
+  metrics: Metric[];
+}
+
 export interface FeaturedProject {
   title: string;
+  subtitle?: string;
   tag: string;
   flagship?: boolean;
   description: string;
+  // Cards use either a flat metric row or, for the paper, metrics grouped by pipeline stage.
   metrics: Metric[];
+  metricGroups?: MetricGroup[];
   stack: string[];
   links: Link[];
 }
@@ -31,18 +39,55 @@ export interface MiniProject {
 
 export const featured: FeaturedProject[] = [
   {
-    title: 'ElectriAI',
-    tag: 'RESEARCH · LIVE',
+    title: 'Identifying Knowledge Bottlenecks in Electrical Construction',
+    subtitle:
+      'ElectriAI · second author, submitted to Automation in Construction (Elsevier), July 2026',
+    tag: 'RESEARCH · UNDER REVIEW · LIVE',
     flagship: true,
     description:
-      'An end-to-end LLM pipeline analyzing an electrical-construction media corpus: data collection, GPT-based classification, human expert annotation, and rigorous evaluation, plus a deployed retrieval-augmented chatbot. Flagship research, journal manuscript in progress.',
-    metrics: [
-      { num: '0.847', label: "Cohen's κ, human vs. model" },
-      { num: '794', label: 'videos analyzed' },
-      { num: '10', label: 'class category schema' },
+      'What do working electricians actually ask, and which of their questions never get answered? I built the end-to-end LLM pipeline behind the paper: scraping and screening YouTube videos and their comment threads, extracting structured question-and-answer records under a schema-constrained GPT pass, validating the model against a 26-annotator human consensus, and shipping a deployed retrieval-augmented chatbot over the result. The headline finding is that only 25.8% of practitioner questions receive a substantive peer answer.',
+    metrics: [],
+    metricGroups: [
+      {
+        heading: 'Collected, before filtering',
+        metrics: [
+          { num: '4,959', label: 'candidate videos screened' },
+          { num: '93,317', label: 'raw comments scraped' },
+          { num: '66,899', label: 'eligible parent threads' },
+        ],
+      },
+      {
+        heading: 'ML classification and validation',
+        metrics: [
+          { num: '16,862', label: 'structured Q&A records' },
+          { num: '12,933', label: 'questions typed, ten forms' },
+          { num: '0.847', label: "Cohen's κ vs. human consensus" },
+          { num: '86.6%', label: 'accuracy, 0.858 weighted F1' },
+        ],
+      },
+      {
+        heading: 'Deployed RAG chatbot',
+        metrics: [
+          { num: '288', label: 'knowledge-base pages generated' },
+          { num: '297', label: 'chunks, 768-dim embeddings' },
+          { num: 'top-8', label: 'hybrid retrieval, 4 rendered full' },
+        ],
+      },
     ],
-    stack: ['Python', 'GPT / Claude', 'scikit-learn', 'React', 'Tailwind', 'Cloudflare'],
-    links: [{ label: 'Live site', href: 'https://youtube.electriai.com' }],
+    stack: [
+      'Python',
+      'GPT-5-mini / GPT-5.6',
+      'scikit-learn',
+      'gemini-embedding-001',
+      'gemini-3.6-flash',
+      'React',
+      'Tailwind',
+      'Cloudflare',
+    ],
+    links: [
+      { label: 'Live site', href: 'https://youtube.electriai.com' },
+      { label: 'Data and code (Zenodo)', href: 'https://doi.org/10.5281/zenodo.21679718' },
+    ],
   },
   {
     title: 'ElectriAI Learning Games',
