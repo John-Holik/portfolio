@@ -41,7 +41,7 @@ export const featured: FeaturedProject[] = [
   {
     title: 'Identifying Knowledge Bottlenecks in Electrical Construction',
     subtitle:
-      'ElectriAI · second author, submitted to Automation in Construction (Elsevier), July 2026',
+      'ElectriAI · second author, submitted to the Journal of Management in Engineering (ASCE), July 2026',
     tag: 'RESEARCH · UNDER REVIEW · LIVE',
     flagship: true,
     description:
