@@ -20,7 +20,7 @@ const { project } = Astro.props;
         {project.subtitle && <p class="subtitle">{project.subtitle}</p>}
         <p class="summary-line">{project.summary}</p>
         <div class="tags">
-          {project.tags.map((t) => <span class="tag">{t}</span>)}
+          {project.tags.map((t) => <span class="tag" data-tag={t}>{t}</span>)}
         </div>
       </div>
       <span class="chev" aria-hidden="true">▾</span>
@@ -29,6 +29,7 @@ const { project } = Astro.props;
 
   <div class="card-body">
     <p class="desc">{project.description}</p>
+    <div class="card-aside">
     {
       project.metricGroups ? (
         <div class="metric-groups">
@@ -74,5 +75,6 @@ const { project } = Astro.props;
         </div>
       )
     }
+    </div>
   </div>
 </details>
