@@ -1,60 +1,78 @@
 ---
-import type { FeaturedProject } from '../data/projects';
+import type { Project } from '../data/projects';
 
 interface Props {
-  project: FeaturedProject;
+  project: Project;
 }
 
 const { project } = Astro.props;
 ---
 
-<article class:list={['card', { flagship: project.flagship }]}>
-  <div class="card-top">
-    <h3>{project.title}</h3>
-    <span class:list={['tag', { live: project.flagship }]}>{project.tag}</span>
-  </div>
-  {project.subtitle && <p class="subtitle">{project.subtitle}</p>}
-  <p class="desc">{project.description}</p>
-  {
-    project.metricGroups ? (
-      <div class="metric-groups">
-        {project.metricGroups.map((g) => (
-          <div class="metric-group">
-            <div class="mg-heading">{g.heading}</div>
-            <div class="metrics">
-              {g.metrics.map((m) => (
-                <div class="metric">
-                  <div class="num">{m.num}</div>
-                  <div class="lbl">{m.label}</div>
-                </div>
-              ))}
+<details
+  class:list={['card', { flagship: project.flagship }]}
+  data-tags={project.tags.join('|')}
+  open={project.flagship}
+>
+  <summary>
+    <div class="card-head">
+      <div class="card-title">
+        <h3>{project.title}</h3>
+        {project.subtitle && <p class="subtitle">{project.subtitle}</p>}
+        <p class="summary-line">{project.summary}</p>
+        <div class="tags">
+          {project.tags.map((t) => <span class="tag">{t}</span>)}
+        </div>
+      </div>
+      <span class="chev" aria-hidden="true">▾</span>
+    </div>
+  </summary>
+
+  <div class="card-body">
+    <p class="desc">{project.description}</p>
+    {
+      project.metricGroups ? (
+        <div class="metric-groups">
+          {project.metricGroups.map((g) => (
+            <div class="metric-group">
+              <div class="mg-heading">{g.heading}</div>
+              <div class="metrics">
+                {g.metrics.map((m) => (
+                  <div class="metric">
+                    <div class="num">{m.num}</div>
+                    <div class="lbl">{m.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
+      ) : (
+        project.metrics &&
+        project.metrics.length > 0 && (
+          <div class="metrics">
+            {project.metrics.map((m) => (
+              <div class="metric">
+                <div class="num">{m.num}</div>
+                <div class="lbl">{m.label}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    ) : (
-      <div class="metrics">
-        {project.metrics.map((m) => (
-          <div class="metric">
-            <div class="num">{m.num}</div>
-            <div class="lbl">{m.label}</div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-  <div class="stack">
-    {project.stack.map((s) => <span class="chip">{s}</span>)}
+        )
+      )
+    }
+    <div class="stack">
+      {project.stack.map((s) => <span class="chip">{s}</span>)}
+    </div>
+    {
+      project.links.length > 0 && (
+        <div class="links">
+          {project.links.map((l) => (
+            <a href={l.href} target="_blank" rel="noopener">
+              {l.label} <span class="arr">↗</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
   </div>
-  {
-    project.links.length > 0 && (
-      <div class="links">
-        {project.links.map((l) => (
-          <a href={l.href} target="_blank" rel="noopener">
-            {l.label} <span class="arr">↗</span>
-          </a>
-        ))}
-      </div>
-    )
-  }
-</article>
+</details>

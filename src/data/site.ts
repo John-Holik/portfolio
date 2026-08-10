@@ -1,12 +1,12 @@
 // Site-wide content and links. Edit here to update the hero, about facts, and contact.
 export const site = {
   name: 'John Holik',
-  role: 'AI/ML Engineer',
+  role: 'Machine Learning Engineer',
 
   // Hero
-  availability: 'Open to AI/ML & software engineering roles',
+  availability: 'Open to ML / AI engineering roles',
   lede:
-    'I build LLM systems and applied ML, from research pipelines that hold up to peer review to products people actually use. Recent Computer Software Engineering grad, based in Chicago.',
+    'I build machine learning systems and the evidence that they work: probabilistic modeling, uncertainty quantification, and evaluation against human ground truth, alongside LLM application development. Recent Computer Software Engineering grad, based in Chicago.',
   location: 'Chicago, IL',
   education: "B.S. Computer Software Engineering, FGCU '26",
   researchLine: 'Independent researcher, ElectriAI',

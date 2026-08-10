@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import MiniCard from '../components/MiniCard.astro';
 import { site } from '../data/site';
-import { featured, more } from '../data/projects';
+import { projects, TAGS } from '../data/projects';
 
 const year = new Date().getFullYear();
+// Only offer a filter chip for tags something actually carries.
+const used = TAGS.filter((t) => projects.some((p) => p.tags.includes(t)));
 ---
 
 <Base>
@@ -27,9 +28,9 @@ const year = new Date().getFullYear();
         <div class="pill"><span class="dot"></span> {site.availability}</div>
       <h1>{site.name}<br /><span class="accent">{site.role}</span></h1>
       <p class="lede">
-        I build <strong>LLM systems and applied ML</strong>, from research pipelines that hold up to
-        peer review to products people actually use. Recent Computer Software Engineering grad, based
-        in Chicago.
+        I build <strong>machine learning systems</strong> and the evidence that they work:
+        probabilistic modeling, uncertainty quantification, and evaluation against human ground
+        truth. Recent Computer Software Engineering grad, based in Chicago.
       </p>
       <div class="meta-row">
         <span>📍 {site.location}</span>
@@ -53,18 +54,26 @@ const year = new Date().getFullYear();
   <section class="section" id="work">
     <div class="wrap">
       <div class="section-head">
-        <h2>Featured work</h2>
+        <h2>Work</h2>
+        <span class="head-note">Click any project to expand</span>
       </div>
 
-      <div class="featured">
-        {featured.map((project) => <ProjectCard project={project} />)}
+      <div class="filters" role="group" aria-label="Filter projects by tag">
+        <button class="filter is-active" data-filter="all" aria-pressed="true">
+          All <span class="count">{projects.length}</span>
+        </button>
+        {
+          used.map((tag) => (
+            <button class="filter" data-filter={tag} aria-pressed="false">
+              {tag}{' '}
+              <span class="count">{projects.filter((p) => p.tags.includes(tag)).length}</span>
+            </button>
+          ))
+        }
       </div>
 
-      <div class="section-head">
-        <h2>More projects</h2>
-      </div>
-      <div class="grid">
-        {more.map((project) => <MiniCard project={project} />)}
+      <div class="projects" id="projects">
+        {projects.map((project) => <ProjectCard project={project} />)}
       </div>
     </div>
   </section>
@@ -77,23 +86,31 @@ const year = new Date().getFullYear();
       <div class="about-grid about">
         <div>
           <p>
-            I'm a software engineer who leans hard into <strong>AI/ML</strong>. My work spans the
-            full arc: collecting and cleaning messy real-world data, building and evaluating LLM and
-            ML systems, and shipping them as real products.
+            I'm a software engineer working in <strong>applied machine learning</strong>:
+            probabilistic modeling, uncertainty quantification, and rigorous model evaluation,
+            alongside LLM application development.
           </p>
           <p>
-            My flagship is <strong>ElectriAI</strong>, an independent research project I built end to
-            end, advised at FGCU and funded by the Head Start Grant. It is now a paper,
-            <em>Identifying Knowledge Bottlenecks in Electrical Construction from Practitioner
-            Discussion on YouTube Using Large Language Models</em>, on which I am second author, submitted to
-            the <strong>Journal of Management in Engineering</strong> (ASCE) and under review. Alongside it
-            I've shipped full-stack LLM apps and a tested scientific-computing package, with a
-            research engineer's habits: reproducible, evaluated, and honest about what the numbers
-            say.
+            The thread through all of it is <strong>knowing whether to trust the model</strong>.
+            Plenty of new grads can get one to produce output. My work is about the evidence:
+            agreement against human ground truth (<strong>0.847 Cohen's κ</strong> on an independent
+            26-annotator consensus), calibrated probabilities instead of raw scores
+            (<strong>0.0499 Brier</strong> on the credit-risk model), and full predictive
+            distributions where a point estimate would be dishonest (four ensemble UQ methods in the
+            red-tide package, scored on CRPS, coverage, and spread-skill).
           </p>
           <p>
-            Comfortable across the stack, from PostgreSQL and REST APIs to systems-level C++ and
-            assembly, with strong fundamentals in data structures, algorithms, and operating systems.
+            Two projects anchor that. <strong>ElectriAI</strong>, an independent research project I
+            built end to end, advised at FGCU and funded by the Head Start Grant, is now a paper on
+            which I am second author, submitted to the <strong>Journal of Management in
+            Engineering</strong> (ASCE) and under review. <strong>Red Tide Reanalysis</strong> is my
+            senior capstone, where I was sole developer of all code across five repositories,
+            including an Ensemble Kalman Filter written from scratch in NumPy and an LSTM surrogate
+            forward operator, published as a public Jupyter Book.
+          </p>
+          <p>
+            I ship the models too, across React, FastAPI, PostgreSQL, and Cloudflare, with
+            systems-level fundamentals in C++ and assembly behind that.
           </p>
         </div>
         <div class="facts">
@@ -103,15 +120,23 @@ const year = new Date().getFullYear();
           </div>
           <div class="fact">
             <div class="k">FOCUS</div>
-            <div class="v">LLM systems · applied ML · full-stack</div>
+            <div class="v">Applied ML · uncertainty quantification · model evaluation</div>
           </div>
           <div class="fact">
-            <div class="k">CORE STACK</div>
-            <div class="v">Python · React · FastAPI · PostgreSQL</div>
+            <div class="k">ML STACK</div>
+            <div class="v">Python · scikit-learn · TensorFlow/Keras · NumPy · SciPy · pandas</div>
           </div>
           <div class="fact">
-            <div class="k">ALSO</div>
-            <div class="v">C++ · SQL · Assembly · Cloudflare</div>
+            <div class="k">METHODS</div>
+            <div class="v">EnKF · GLUE · bootstrap · LSTM · CRPS / coverage / calibration</div>
+          </div>
+          <div class="fact">
+            <div class="k">LLM</div>
+            <div class="v">OpenAI · Anthropic · Gemini · RAG and embeddings · agent development</div>
+          </div>
+          <div class="fact">
+            <div class="k">SHIPPING</div>
+            <div class="v">React · FastAPI · PostgreSQL · Cloudflare · pytest + Hypothesis</div>
           </div>
           <div class="fact">
             <div class="k">LOCATION</div>
@@ -127,8 +152,8 @@ const year = new Date().getFullYear();
       <div class="foot-cta">
         <h2>Let's build something.</h2>
         <p>
-          Open to AI/ML and software engineering roles, and always up for a good problem. The fastest
-          way to reach me is email.
+          Open to machine learning and AI engineering roles, and always up for a good problem. The
+          fastest way to reach me is email.
         </p>
         <div class="foot-links">
           <a class="btn btn-primary" href={`mailto:${site.email}`}>{site.email}</a>
@@ -144,3 +169,26 @@ const year = new Date().getFullYear();
     </div>
   </footer>
 </Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const cards = document.querySelectorAll<HTMLDetailsElement>('#projects .card');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+
+      buttons.forEach((b) => {
+        const active = b === button;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+
+      // Filtering only hides and shows. Whatever the visitor expanded stays expanded.
+      cards.forEach((card) => {
+        const tags = (card.dataset.tags || '').split('|');
+        card.hidden = filter !== 'all' && !tags.includes(filter || '');
+      });
+    });
+  });
+</script>
