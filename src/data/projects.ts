@@ -132,7 +132,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Credit-Risk ML',
-    subtitle: 'Loan-default prediction · three-person team project, November 2025',
+    subtitle: 'Loan-default prediction · solo project, November 2025',
     summary:
       'Fourteen models benchmarked on 32,416 loans, selected on test ROC-AUC with an explicit overfit check.',
     tags: ['Machine learning', 'Evaluation'],
